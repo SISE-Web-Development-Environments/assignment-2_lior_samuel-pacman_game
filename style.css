@@ -15,13 +15,13 @@ html{
 -----------------------------*/
 
 
-.fancyNav{
+.list{
 	/* Affects the UL element */
 	overflow: hidden;
 	display: inline-block;
 }
 
-.fancyNav li{
+.list li{
 	/* Specifying a fallback color and we define CSS3 gradients for the major browsers: */
 	
 	background-color: #f0f0f0;
@@ -45,7 +45,7 @@ html{
 	list-style: none;
 }
 
-.fancyNav li:after{
+.list li:after{
 
 	/* This creates a pseudo element inslide each LI */	
 	
@@ -84,12 +84,12 @@ html{
 
 /* Treating the first LI and li:after elements separately */
 
-.fancyNav li:first-child{
+.list li:first-child{
 	border-radius: 4px 0 0 4px;
 }
 
-.fancyNav li:first-child:after,
-.fancyNav li.selected:first-child:after{
+.list li:first-child:after,
+.list li.selected:first-child:after{
 	box-shadow:1px 0 0 #a3a3a3,2px 0 0 #fff;
 	-moz-box-shadow:1px 0 0 #a3a3a3,2px 0 0 #fff;
 	-webkit-box-shadow:1px 0 0 #a3a3a3,2px 0 0 #fff;
@@ -97,14 +97,14 @@ html{
 	border-radius:4px 0 0 4px;
 }
 
-.fancyNav li:last-child{
+.list li:last-child{
 	border-radius: 0 4px 4px 0;
 }
 
 /* Treating the last LI and li:after elements separately */
 
-.fancyNav li:last-child:after,
-.fancyNav li.selected:last-child:after{
+.list li:last-child:after,
+.list li.selected:last-child:after{
 	box-shadow:-1px 0 0 #a3a3a3,-2px 0 0 #fff;
 	-moz-box-shadow:-1px 0 0 #a3a3a3,-2px 0 0 #fff;
 	-webkit-box-shadow:-1px 0 0 #a3a3a3,-2px 0 0 #fff;
@@ -112,27 +112,27 @@ html{
 	border-radius:0 4px 4px 0;
 }
 
-.fancyNav li:hover:after,
-.fancyNav li.selected:after,
-.fancyNav li:target:after{
+.list li:hover:after,
+.list li.selected:after,
+.list li:target:after{
 	/* This property triggers the CSS3 transition */
 	opacity:1;
 }
 
-.fancyNav:hover li.selected:after,
-.fancyNav:hover li:target:after{
+.list:hover li.selected:after,
+.list:hover li:target:after{
 	/* Hides the targeted li when we are hovering on the UL */
 	opacity:0;
 }
 
-.fancyNav li.selected:hover:after,
-.fancyNav li:target:hover:after{
+.list li.selected:hover:after,
+.list li:target:hover:after{
 	opacity:1 !important;
 }
 
 /* Styling the anchor elements */
 
-.fancyNav li a{
+.list li a{
 	color: #5d5d5d;
 	display: inline-block;
 	font: 20px/1 Lobster,Arial,sans-serif;
@@ -144,7 +144,7 @@ html{
 	white-space:nowrap;
 }
 
-.fancyNav a.homeIcon{
+.list a.homeIcon{
 	background:url('img/pacmanIcone.jpeg') no-repeat center center;
 	display: block;
 	overflow: hidden;
