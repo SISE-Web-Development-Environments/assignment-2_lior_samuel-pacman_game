@@ -13,8 +13,8 @@
 	<script type="text/javascript" src="app.js"></script>
 
 	<!-- Our CSS stylesheet file -->
-	<link rel="stylesheet" href="style.css" />
-	<link rel="stylesheet" href="registerStyle.css" />
+	<link rel="stylesheet" href="style/style.css" />
+	<link rel="stylesheet" href="style/registerStyle.css" />
 
 	<!-- Including the Lobster font from Google's Font Directory -->
 	<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Lobster" />
@@ -39,12 +39,6 @@
 		<li id="Contact"><a href="#contact">Contact us</a></li>
 	</ul>
 </nav>
-
-<div class="screen" id='welcomeScreen' align="center">
-	<input type=button class="button" id="loginButton" value="Login">
-	<input type=button class="button" id="signupButton" value="Register">
-</div>
-
 
 <!--<footer> The game was created by Samuel. <a href="mailto:benichos@post.bgu.ac.il?subject=RetroPacman">Contact Us.</a></footer>-->
 
@@ -88,30 +82,41 @@
 	</form>
 </div>
 
+<div id="main" class="container-fluid">>
 
+	<section id="welcomeScreen" class="screen">
+		<div id="welcomeButtons" align="center">
+			<button onclick="moveTo('login')" class="button" style="vertical-align:middle"><span>Login </span>
+			</button>
+			<button onclick="moveTo('register')" class="button" style="vertical-align:middle"><span>Register </span>
+			</button>
+		</div>
+	</section>
 
+	<section id="registerSection">
 
+	</section>
 
+	<section id="loginSection">
 
-<!--<div id="score">
-    <label for="lblScore">SCORE:</label>
-    <input id="lblScore" type="text" />
+	</section>
+
+	<section id="preGameSection">
+
+	</section>
+
+	<section id="gameSection">
+
+	</section>
 </div>
-<div id="time">
-    <label for="lblTime">TIME:</label>
-    <input id="lblTime" type="text" />
-</div>
-<div id="game">
-    <canvas id="canvas" height="600" width="600"></canvas>
-</div>-->
+
 
 
 <script>
 
 
-
-
-
 </script>
+
+
 </body>
 </html>
