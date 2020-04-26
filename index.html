@@ -1,21 +1,117 @@
 <!DOCTYPE html>
-<html>
-	<head>
-		<script src="./jquery-3.4.1.slim.min.js"></script>
-		<script type="text/javascript" src="./app.js"></script>
-	</head>
 
-	<body>
-		<div id="score">
-			<label for="lblScore">SCORE:</label>
-			<input id="lblScore" type="text" />
-		</div>
-		<div id="time">
-			<label for="lblTime">TIME:</label>
-			<input id="lblTime" type="text" />
-		</div>
-		<div id="game">
-			<canvas id="canvas" height="600" width="600"></canvas>
-		</div>
-	</body>
+<html>
+
+<head>
+
+	<script src="./jquery-3.4.1.slim.min.js"></script>
+	<script type="text/javascript" src="./app.js"></script>
+
+	<meta charset="utf-8" />
+
+	<!-- Our javaScript  file -->
+	<script type="text/javascript" src="app.js"></script>
+
+	<!-- Our CSS stylesheet file -->
+	<link rel="stylesheet" href="style.css" />
+	<link rel="stylesheet" href="registerStyle.css" />
+
+	<!-- Including the Lobster font from Google's Font Directory -->
+	<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Lobster" />
+
+</head>
+
+<body>
+
+<div  id="header1">
+	<header>
+		Samuel Benichou & Lior Baruchovitch
+	</header>
+</div>
+
+
+<nav>
+	<ul class="fancyNav">
+		<li id="Welcome"><a href="#home" class="homeIcon">Welcome</a></li>
+		<li id="Register"><a href="#news">Register</a></li>
+		<li id="Login"><a href="#about">Login</a></li>
+		<li id="About"><a href="#services">About</a></li>
+		<li id="Contact"><a href="#contact">Contact us</a></li>
+	</ul>
+</nav>
+
+<div class="screen" id='welcomeScreen' align="center">
+	<input type=button class="button" id="loginButton" value="Login">
+	<input type=button class="button" id="signupButton" value="Register">
+</div>
+
+
+<!--<footer> The game was created by Samuel. <a href="mailto:benichos@post.bgu.ac.il?subject=RetroPacman">Contact Us.</a></footer>-->
+
+<div class="screen" id='registerScreen' style="display: none;" align="center">
+	</br>
+	</br>
+	<form class="cmxform" id="signupForm" method="get" action="" align="left">
+		<fieldset>
+			<p>
+				<label for="firstname">Firstname</label>
+				<input id="firstname" name="firstname" type="text">
+			</p>
+			<p>
+				<label for="lastname">Lastname</label>
+				<input id="lastname" name="lastname" type="text">
+			</p>
+			<p>
+				<label for="username">Username</label>
+				<input id="username" name="username" type="text">
+			</p>
+			<p>
+				<label for="password">Password</label>
+				<input id="password" name="password" type="password" aria-autocomplete="list">
+			</p>
+			<p>
+				<label for="confirm_password">Confirm password</label>
+				<input id="confirm_password" name="confirm_password" type="password">
+			</p>
+			<p>
+				<label for="email">Email</label>
+				<input id="email" name="email" type="email">
+			</p>
+			<p>
+				<label for="birthday">Birthday:</label>
+				<input type="date" id="birthday" name="birthday">
+			</p>
+			<p>
+				<button id="regSubmit" class="submit" type="submit">submit</button>
+			</p>
+		</fieldset>
+	</form>
+</div>
+
+
+
+
+
+
+<!--<div id="score">
+    <label for="lblScore">SCORE:</label>
+    <input id="lblScore" type="text" />
+</div>
+<div id="time">
+    <label for="lblTime">TIME:</label>
+    <input id="lblTime" type="text" />
+</div>
+<div id="game">
+    <canvas id="canvas" height="600" width="600"></canvas>
+</div>-->
+
+
+<script>
+
+
+
+
+
+</script>
+</body>
 </html>
