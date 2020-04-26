@@ -2,121 +2,160 @@
 
 <html>
 
-<head>
+	<head>
 
-	<script src="./jquery-3.4.1.slim.min.js"></script>
-	<script type="text/javascript" src="./app.js"></script>
+		<script src="./jquery-3.4.1.slim.min.js"></script>
+		<script type="text/javascript" src="./app.js"></script>
 
-	<meta charset="utf-8" />
+		<meta charset="utf-8" />
 
-	<!-- Our javaScript  file -->
-	<script type="text/javascript" src="app.js"></script>
+		<!-- Our javaScript  file -->
+		<script type="text/javascript" src="app.js"></script>
+		<script type="text/javascript" src="main.js"></script>
+		<script type="text/javascript" src="register.js"></script>
+		<script type="text/javascript" src="login.js"></script>
+		<script type="text/javascript" src="about.js"></script>
+		<script type="text/javascript" src="navbar.js"></script>
+		<script type="text/javascript" src="pre-game.js"></script>
+		<script type="text/javascript" src="game.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script src="https://jqueryvalidation.org/files/dist/jquery.validate.min.js"></script>
+<script src="https://jqueryvalidation.org/files/dist/additional-methods.min.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
-	<!-- Our CSS stylesheet file -->
-	<link rel="stylesheet" href="style/style.css" />
-	<link rel="stylesheet" href="style/registerStyle.css" />
+		<!-- Our CSS stylesheet file -->
+		<link rel="stylesheet" href="style.css" />
+		<link rel="stylesheet" href="registerStyle.css" />
 
-	<!-- Including the Lobster font from Google's Font Directory -->
-	<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Lobster" />
+		<!-- Including the Lobster font from Google's Font Directory -->
+        <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Lobster" />
 
-</head>
+	</head>
 
-<body>
+	<body>
 
-<div  id="header1">
-	<header>
-		Samuel Benichou & Lior Baruchovitch
-	</header>
-</div>
-
-
-<nav>
-	<ul class="fancyNav">
-		<li id="Welcome"><a href="#home" class="homeIcon">Welcome</a></li>
-		<li id="Register"><a href="#news">Register</a></li>
-		<li id="Login"><a href="#about">Login</a></li>
-		<li id="About"><a href="#services">About</a></li>
-		<li id="Contact"><a href="#contact">Contact us</a></li>
-	</ul>
-</nav>
-
-<!--<footer> The game was created by Samuel. <a href="mailto:benichos@post.bgu.ac.il?subject=RetroPacman">Contact Us.</a></footer>-->
-
-<div class="screen" id='registerScreen' style="display: none;" align="center">
-	</br>
-	</br>
-	<form class="cmxform" id="signupForm" method="get" action="" align="left">
-		<fieldset>
-			<p>
-				<label for="firstname">Firstname</label>
-				<input id="firstname" name="firstname" type="text">
-			</p>
-			<p>
-				<label for="lastname">Lastname</label>
-				<input id="lastname" name="lastname" type="text">
-			</p>
-			<p>
-				<label for="username">Username</label>
-				<input id="username" name="username" type="text">
-			</p>
-			<p>
-				<label for="password">Password</label>
-				<input id="password" name="password" type="password" aria-autocomplete="list">
-			</p>
-			<p>
-				<label for="confirm_password">Confirm password</label>
-				<input id="confirm_password" name="confirm_password" type="password">
-			</p>
-			<p>
-				<label for="email">Email</label>
-				<input id="email" name="email" type="email">
-			</p>
-			<p>
-				<label for="birthday">Birthday:</label>
-				<input type="date" id="birthday" name="birthday">
-			</p>
-			<p>
-				<button id="regSubmit" class="submit" type="submit">submit</button>
-			</p>
-		</fieldset>
-	</form>
-</div>
-
-<div id="main" class="container-fluid">>
-
-	<section id="welcomeScreen" class="screen">
-		<div id="welcomeButtons" align="center">
-			<button onclick="moveTo('login')" class="button" style="vertical-align:middle"><span>Login </span>
-			</button>
-			<button onclick="moveTo('register')" class="button" style="vertical-align:middle"><span>Register </span>
-			</button>
+		<div  id="header1">
+			<header>
+			Samuel Benichou & Lior Baruchovitch
+			</header>
 		</div>
-	</section>
-
-	<section id="registerSection">
-
-	</section>
-
-	<section id="loginSection">
-
-	</section>
-
-	<section id="preGameSection">
-
-	</section>
-
-	<section id="gameSection">
-
-	</section>
-</div>
 
 
+		<nav>
+            <!--<ul class="fancyNav">
+                <li id="Welcome"><a href="#home" class="homeIcon">Welcome</a></li>
+                <li id="Register"><a href="#news">Register</a></li>
+                <li id="Login"><a href="#about">Login</a></li>
+                <li id="About"><a href="#services">About</a></li>
+                <li id="Contact"><a href="#contact">Contact us</a></li>
+            </ul>-->
+            <div class="container">
+        		<!--<div class="nav-heading">
+            		<button class="toggle-nav" data-toggle="open-navbar1"><i class="fa fa-align-right"></i></button>
+            		<a class="brand" href="#">PACMAN</a>
+        		</div>-->
+        		<div class="menu" id="open-navbar1">
+            		<ul class="list">
+                	<li><a class="activeNav welcomeNav" href="#" data-option="welcome"
+                       	onclick="navClicked(this)">Welcome</a></li>
+                	<li><a class="registerNav" href="#" data-option="register" onclick="navClicked(this)">Register</a>
+                	</li>
+                	<li><a class="loginNav" href="#" data-option="login" onclick="navClicked(this)">Login</a></li>
+                	<li><a id="aboutButton" onclick="document.getElementById('id01').style.display='block'"
+                       class="aboutNav"
+                       href="#"
+                       data-option="about">About</a></li>
+            		</ul>
+        		</div>
+    		</div>
 
-<script>
+        </nav>
+
+        <!--<div class="screen" id='welcomeScreen' align="center">
+			<input type=button class="button" id="loginButton" value="Login">
+			<input type=button class="button" id="signupButton" value="Register">
+		</div>-->
+
+        <!--<footer> The game was created by Samuel. <a href="mailto:benichos@post.bgu.ac.il?subject=RetroPacman">Contact Us.</a></footer>-->
+
+        <div id="main" class="container-fluid">
+    		<section id="welcomeSection" class="activeSection" align="center">
+       			<div id="welcomeButtons">
+            		<button onclick="moveTo('login')" class="button" style="vertical-align:middle"><span>	Login </span>
+            		</button>
+            		<button onclick="moveTo('register')" class="button" style="vertical-align:middle"><span>Register </span>
+            		</button>
+        		</div>
+    		</section>
+
+    		<section id="loginSection">
+        <div class="container">
+            <div class="form-group">
+                <div class="page-header">
+                    <p class="lead text-center">
+                        <i class="glyphicon glyphicon-log-in"></i> Welcome To Account Login Panel
+                    </p>
+                </div>
+                <form id="loginForm" class="form-horizontal col-xs-4 col-xs-offset-4" role="form" method="post"
+                      action="">
+                    <label for="loginUserName">User Name</label>
+                    <div class="input-group">
+                        <div class="input-group-addon">
+                            <i class="glyphicon glyphicon-user"></i>
+                        </div>
+                        <input class="form-control" id="loginUserName" placeholder="User Name" type="text"
+                               name="loginUserName">
+                    </div>
+                    <label for="loginPassword">Password</label>
+                    <div class="input-group">
+                        <div class="input-group-addon">
+                            <i class="glyphicon glyphicon-lock"></i>
+                        </div>
+                        <input class="form-control" id="loginPassword" placeholder="Password" type="password"
+                               name="loginPassword">
+                    </div>
+                    <div class="form-row">
+                        <input id="login-submit-button" class="form-control btn btn-primary" type="submit"
+                               value="Submit">
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+		</div>
 
 
-</script>
 
 
-</body>
+
+
+		<!--<div id="score">
+			<label for="lblScore">SCORE:</label>
+			<input id="lblScore" type="text" />
+		</div>
+		<div id="time">
+			<label for="lblTime">TIME:</label>
+			<input id="lblTime" type="text" />
+		</div>
+		<div id="game">
+			<canvas id="canvas" height="600" width="600"></canvas>
+		</div>-->
+
+
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script src="https://jqueryvalidation.org/files/dist/jquery.validate.min.js"></script>
+<script src="https://jqueryvalidation.org/files/dist/additional-methods.min.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script type="text/javascript" src="code/main.js"></script>
+<script type="text/javascript" src="code/register.js"></script>
+<script type="text/javascript" src="code/login.js"></script>
+<script type="text/javascript" src="code/about.js"></script>
+<script type="text/javascript" src="code/navbar.js"></script>
+<script type="text/javascript" src="code/pre-game.js"></script>
+<script type="text/javascript" src="code/game.js"></script>
+	</body>
 </html>
