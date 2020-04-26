@@ -4,7 +4,7 @@
 }
 
 html{
-	background: url(../img/pacmanLogo.jpeg);
+	background: url(img/pacmanLogo.jpeg);
   	background-repeat: no-repeat;
   	background-size: cover;
   	background-color: #464646;
@@ -145,7 +145,7 @@ html{
 }
 
 .fancyNav a.homeIcon{
-	background:url('../img/pacmanIcone.jpeg') no-repeat center center;
+	background:url('img/pacmanIcone.jpeg') no-repeat center center;
 	display: block;
 	overflow: hidden;
 	padding-left: 12px;
