@@ -33,15 +33,11 @@
             <div class="container">
         		<div class="menu" id="open-navbar1">
             		<ul class="list">
-                	<li><a class="activeNav welcomeNav" href="#" data-option="welcome"
-                       	onclick="navClicked(this)">Welcome</a></li>
-                	<li><a class="registerNav" href="#" data-option="register" onclick="navClicked(this)">Register</a>
-                	</li>
-                	<li><a class="loginNav" href="#" data-option="login" onclick="navClicked(this)">Login</a></li>
-                	<li><a id="aboutButton" onclick="document.getElementById('id01').style.display='block'"
-                       class="aboutNav"
-                       href="#"
-                       data-option="about">About</a></li>
+                        <li id="WelcomeTOPbutt" class="activeNav welcomeNav"><a  href="#" data-option="welcome"> Welcome</a></li>
+                        <li id="RegisterTOPbutt" class="registerNav"><a  href="#" data-option="register"> Register</a></li>
+                        <li id="LoginTOPbutt" class="loginNav"><a  href="#" data-option="login"> Login</a></li>
+                        <li id="AboutTOPbutt" class="aboutNav"><a   href="#" data-option="about"> About</a></li>
+
             		</ul>
         		</div>
     		</div>
@@ -174,25 +170,85 @@
 			<section id="gameSection" class="gameClass">
 
 			</section>
+
+            <section id="aboutSection" class="aboutClass">
+                <div id="aboutBotInTop" class="aboutBox">
+                    <div id="aboutBoxHeader" class="aboutBox">
+                        <h2>  About Information</h2>
+                    </div>
+                    <div id="aboutBoxbody" class="aboutBox">
+                        <h4>  Names of presenters</h4>
+                        <h5>  Lior Baruchovitch & Samuel Benichou</h5>
+                           More information.......
+                    </div>
+                </div>
+            </section>
 		</div>
 
         <script type="text/javascript">
-            $("#registerbutt").click(function () {
-                $(".startClass").hide();
+            $(document).ready(function (e) {
+                $(".startClass").show();
+                $(".registerClass").hide();
                 $(".loginClass").hide();
                 $(".preGameClass").hide();
                 $(".gameClass").hide();
-                $("#registerClass").show();
+                $(".aboutClass").hide();
+            });
+            /////////////////////////////////////////////////////////////main bottoms
+            $("#registerbutt").click(function () {
+                $(".startClass").hide();
+                $(".preGameClass").hide();
+                $(".gameClass").hide();
+                $(".loginClass").hide();
+                $(".registerClass").show();
+                $(".aboutClass").hide();
             })
 
             $("#loginbutt").click(function () {
                 $(".startClass").hide();
-                $(".registerClass").hide();
                 $(".preGameClass").hide();
                 $(".gameClass").hide();
-                $("#registerClass").show();
+                $(".registerClass").hide();
+                $(".loginClass").show();
+                $(".aboutClass").hide();
             })
 
+            ///////////////////////////////////////////////////////////////////////////////////// top bottoms
+            $("#AboutTOPbutt").click(function () {
+                $(".startClass").hide();
+                $(".preGameClass").hide();
+                $(".gameClass").hide();
+                $(".registerClass").hide();
+                $(".loginClass").hide();
+                $(".aboutClass").show();
+            })
+
+            $("#LoginTOPbutt").click(function () {
+                $(".startClass").hide();
+                $(".preGameClass").hide();
+                $(".gameClass").hide();
+                $(".registerClass").hide();
+                $(".loginClass").show();
+                $(".aboutClass").hide();
+            })
+
+            $("#RegisterTOPbutt").click(function () {
+                $(".startClass").hide();
+                $(".preGameClass").hide();
+                $(".gameClass").hide();
+                $(".registerClass").show();
+                $(".loginClass").hide();
+                $(".aboutClass").hide();
+            })
+
+            $("#WelcomeTOPbutt").click(function () {
+                $(".startClass").show();
+                $(".preGameClass").hide();
+                $(".gameClass").hide();
+                $(".registerClass").hide();
+                $(".loginClass").hide();
+                $(".aboutClass").hide();
+            })
         </script>
 
 	</body>
