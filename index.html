@@ -80,7 +80,8 @@
                             </div>
 
                             <div class="form-row">
-                                <li id="login-submit-button" class="submitLoginbutton"><a href="#lest"  type="submit" style="vertical-align:middle"> SUBMIT</a></li>
+                                <li onclick="startLoginCheck();return true;" id="login-submit-button" class="submitLoginbutton">
+                                    <a href="#lest" type="submit" style="vertical-align:middle"> SUBMIT</a></li>
                             </div>
                         </form>
                     </div>
@@ -154,7 +155,7 @@
                             </div>
 
                             <div class="form-row">
-                                <input id="register-submit-button" class="form-control btn btn-primary" type="submit"
+                                <input onclick="startRegisterinCheck();return true;" id="register-submit-button" class="form-control btn btn-primary" type="submit"
                                        value="Submit">
                             </div>
                         </form>
@@ -243,6 +244,8 @@
 		</div>
 
         <script type="text/javascript">
+
+
             $(document).ready(function (e) {
                 $(".startClass").show();
                 $(".registerClass").hide();
@@ -306,59 +309,7 @@
                 $(".loginClass").hide();
                 $(".aboutClass").hide();
             })
-            /////////////////////////////////////////////////////////////////////////////move to game
-            $("#login-submit-button").click(function () {
-                $(".startClass").hide();
-                $(".preGameClass").show();
-                $(".registerClass").hide();
-                $(".loginClass").hide();
-                $(".aboutClass").hide();
-                $(".gameClass").hide();
-            })
-            ////////////////////////////////////////////////////////////////////////////////////////
-            $("#loginForm").click(function () {
-                let username = document.getElementById("loginUserName").value;
-                let password = document.getElementById("loginPassword").value;
 
-                if (null !== username && null !== password && users[username] === password) {
-                    alert("Valid Password");
-                    $(".startClass").hide();
-                    $(".preGameClass").show();
-                    $(".registerClass").hide();
-                    $(".loginClass").hide();
-                    $(".aboutClass").hide();
-                    $(".gameClass").hide();
-                } else {
-                    alert("username or password is incorrect");
-                }
-            });
-
-            $("#lregisterForm").click(function () {
-                let username = $("#registerUserName").val();
-                let password = $("#registerPassword").val();
-                let firstName = $("#registerFirstName").val();
-                let lastName = $("#registerLastName").val();
-                let email = $("#registerEmail").val();
-                let birthday = $("#registerBirthDat").val();
-
-                if (username === "" || password === "" || firstName === "" || lastName === "" || email === "" || birthday === "") {
-                    alert("You didn't insert one of the fields");
-                }
-                else if (username in users) {
-                    alert("This username is already exists");
-                }
-                else {
-                    users[username] = password;
-                    $("#lregisterForm")[0].reset();
-                    $(".startClass").hide();
-                    $(".preGameClass").hide();
-                    $(".gameClass").hide();
-                    $(".registerClass").hide();
-                    $(".loginClass").show();
-                    $(".aboutClass").hide();
-                }
-                return false;
-            });
         </script>
 
 	</body>
