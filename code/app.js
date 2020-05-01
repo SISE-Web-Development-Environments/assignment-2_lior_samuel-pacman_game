@@ -6,13 +6,46 @@ var pac_color;
 var start_time;
 var time_elapsed;
 var interval;
+/////////////////////////////////my vars
+var thisCurGameData;
+var MonstersNumber;
+var BallsNumber;
+var durationTime;
+/////////////////////////////////////////////////////////////////////////////////////////////
+function newGame(gameStartInfo) {
+	startTheGame(gameStartInfo);
+}
 
-$(document).ready(function() {
-	context = canvas.getContext("2d");
-	Start();
-});
+function restartGame(gameStartInfo) {
+	alert("game restarted, New game has started. Good luck!");
+	startTheGame(gameStartInfo);
+}
 
-function Start() {
+function startTheGame(gameStartInfo) {
+	var canvas = document.getElementById("canvas");
+	if(canvas.getContext){
+		var contex1 = canvas.getContext("2d");
+		//contex1.fillStyle = "#ffffff";
+		//contex1.fillRect(0, 0, 600, 600)
+		context = contex1;
+		Start(gameStartInfo);
+	}
+
+}
+////////////////////////////////////////////////////////////////////////////////////////////
+
+function Start(gameStartInfo) {
+	alert("New game has started. Good luck!");
+	thisCurGameData = gameStartInfo;
+	BallsNumber = thisCurGameData.numberOfBalls;
+	MonstersNumber = thisCurGameData.numberOfMonsters;
+	durationTime = thisCurGameData.DurationOfGame;
+
+	alert("chet info- balls num:" + BallsNumber);
+	alert("chet info- monster num:" + MonstersNumber);
+	alert("chet info- duration time:" + durationTime);
+
+	///////////////////////////////////////////////////////////////
 	board = new Array();
 	score = 0;
 	pac_color = "yellow";
@@ -32,7 +65,7 @@ function Start() {
 				(i == 6 && j == 2)
 			) {
 				board[i][j] = 4;
-			} else {
+			} else {/////////////////////////////////////////////////////////////////// put the pacman,food
 				var randomNum = Math.random();
 				if (randomNum <= (1.0 * food_remain) / cnt) {
 					food_remain--;
@@ -49,7 +82,7 @@ function Start() {
 			}
 		}
 	}
-	while (food_remain > 0) {
+	while (food_remain > 0) {////////////////////////////////////////////////////// fill board with food
 		var emptyCell = findRandomEmptyCell(board);
 		board[emptyCell[0]][emptyCell[1]] = 1;
 		food_remain--;
@@ -69,10 +102,10 @@ function Start() {
 		},
 		false
 	);
-	interval = setInterval(UpdatePosition, 250);
+	interval = setInterval(UpdatePosition, 250);///////////////////change time by user choice
 }
 
-function findRandomEmptyCell(board) {
+function findRandomEmptyCell(board) {///////////////////////////////// find empty cell...to put food in
 	var i = Math.floor(Math.random() * 9 + 1);
 	var j = Math.floor(Math.random() * 9 + 1);
 	while (board[i][j] != 0) {
@@ -82,7 +115,8 @@ function findRandomEmptyCell(board) {
 	return [i, j];
 }
 
-function GetKeyPressed() {
+function GetKeyPressed() {////////////////////////find out where the player want to move, witch bottom pushed
+	                      ////////////// need to change for user choice
 	if (keysDown[38]) {
 		return 1;
 	}
@@ -97,39 +131,7 @@ function GetKeyPressed() {
 	}
 }
 
-function Draw() {
-	canvas.width = canvas.width; //clean board
-	lblScore.value = score;
-	lblTime.value = time_elapsed;
-	for (var i = 0; i < 10; i++) {
-		for (var j = 0; j < 10; j++) {
-			var center = new Object();
-			center.x = i * 60 + 30;
-			center.y = j * 60 + 30;
-			if (board[i][j] == 2) {
-				context.beginPath();
-				context.arc(center.x, center.y, 30, 0.15 * Math.PI, 1.85 * Math.PI); // half circle
-				context.lineTo(center.x, center.y);
-				context.fillStyle = pac_color; //color
-				context.fill();
-				context.beginPath();
-				context.arc(center.x + 5, center.y - 15, 5, 0, 2 * Math.PI); // circle
-				context.fillStyle = "black"; //color
-				context.fill();
-			} else if (board[i][j] == 1) {
-				context.beginPath();
-				context.arc(center.x, center.y, 15, 0, 2 * Math.PI); // circle
-				context.fillStyle = "black"; //color
-				context.fill();
-			} else if (board[i][j] == 4) {
-				context.beginPath();
-				context.rect(center.x - 30, center.y - 30, 60, 60);
-				context.fillStyle = "grey"; //color
-				context.fill();
-			}
-		}
-	}
-}
+
 
 function UpdatePosition() {
 	board[shape.i][shape.j] = 0;
@@ -168,5 +170,39 @@ function UpdatePosition() {
 		window.alert("Game completed");
 	} else {
 		Draw();
+	}
+}
+
+function Draw() {
+	canvas.width = canvas.width; //clean board
+	lblScore.value = score;
+	lblTime.value = time_elapsed;
+	for (var i = 0; i < 10; i++) {
+		for (var j = 0; j < 10; j++) {
+			var center = new Object();
+			center.x = i * 60 + 30;
+			center.y = j * 60 + 30;
+			if (board[i][j] == 2) {
+				context.beginPath();
+				context.arc(center.x, center.y, 30, 0.15 * Math.PI, 1.85 * Math.PI); // half circle
+				context.lineTo(center.x, center.y);
+				context.fillStyle = pac_color; //color
+				context.fill();
+				context.beginPath();
+				context.arc(center.x + 5, center.y - 15, 5, 0, 2 * Math.PI); // circle
+				context.fillStyle = "black"; //color
+				context.fill();
+			} else if (board[i][j] == 1) {
+				context.beginPath();
+				context.arc(center.x, center.y, 15, 0, 2 * Math.PI); // circle
+				context.fillStyle = "black"; //color
+				context.fill();
+			} else if (board[i][j] == 4) {
+				context.beginPath();
+				context.rect(center.x - 30, center.y - 30, 60, 60);
+				context.fillStyle = "grey"; //color
+				context.fill();
+			}
+		}
 	}
 }

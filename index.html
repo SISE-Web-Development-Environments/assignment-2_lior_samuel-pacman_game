@@ -209,14 +209,9 @@
                                        type="number"
                                        name="numberOfMonsters">
                             </div>
-
                             <div class="form-row">
-                                <input id="start-game-submit-button" class="form-control btn btn-primary" type="submit"
-                                       value="Submit">
-                            </div>
-
-                            <div class="form-row">
-                                <li onclick="newGame();return true;" id="enterGame-submit-button" class="submitEnterGamebutton"><a href="#lest"  type="submit" style="vertical-align:middle"> SUBMIT</a></li>
+                                <li onclick="startGamePreChechData();return true;" id="enterGame-submit-button" class="submitEnterGamebutton">
+                                    <a href="#lest"  type="submit" style="vertical-align:middle"> SUBMIT</a></li>
                             </div>
                         </form>
                     </div>
@@ -224,7 +219,11 @@
             </section>
 
             <section id="gameSection" class="gameClass">
-                <div id="gameInfo" class="gameHeaderClass">
+                <div id="" class="" >
+                    <button onclick="newGame();return true;" id="newGameButton" class="Gamebutton">New Game</button>
+                    <button onclick="restartGame();return true;" id="restartButton" class="Gamebutton">Restart Game</button>
+                </div>
+                <div id="gameInfo" class="gameHeaderClass" align="center">
                     <h4>User:</h4>
                     <h5 id="userName"></h5>
                     <h5>SCORE:</h5>
@@ -233,13 +232,11 @@
                     <input id="lblTime" type="text"/>
                     <h4>Lives</h4>
                     <h5 id="lives"></h5>
-
-                    <button onclick="newGame();return true;" id="newGameButton" class="Gamebutton">New Game</button>
-                    <button onclick="restartGame();return true;" id="restartButton" class="Gamebutton">Restart Game</button>
                 </div>
-
-                <div id="CanvasGameArea" class="canvasClass">
-                    <canvas id="canvasBord" height="600" width="600"></canvas>
+                <div id="canvasBackground" class="canvasBackgroundClass">
+                    <div id="CanvasGameArea" class="canvasClass" align="center">
+                        <canvas id="canvas" height="600" width="600" style="border:10px solid #000000;"></canvas>
+                    </div>
                 </div>
 
             </section>
@@ -318,15 +315,50 @@
                 $(".aboutClass").hide();
                 $(".gameClass").hide();
             })
+            ////////////////////////////////////////////////////////////////////////////////////////
+            $("#loginForm").click(function () {
+                let username = document.getElementById("loginUserName").value;
+                let password = document.getElementById("loginPassword").value;
 
-            $("#enterGame-submit-button").click(function () {
-                $(".startClass").hide();
-                $(".preGameClass").hide();
-                $(".registerClass").hide();
-                $(".loginClass").hide();
-                $(".aboutClass").hide();
-                $(".gameClass").show();
-            })
+                if (null !== username && null !== password && users[username] === password) {
+                    alert("Valid Password");
+                    $(".startClass").hide();
+                    $(".preGameClass").show();
+                    $(".registerClass").hide();
+                    $(".loginClass").hide();
+                    $(".aboutClass").hide();
+                    $(".gameClass").hide();
+                } else {
+                    alert("username or password is incorrect");
+                }
+            });
+
+            $("#lregisterForm").click(function () {
+                let username = $("#registerUserName").val();
+                let password = $("#registerPassword").val();
+                let firstName = $("#registerFirstName").val();
+                let lastName = $("#registerLastName").val();
+                let email = $("#registerEmail").val();
+                let birthday = $("#registerBirthDat").val();
+
+                if (username === "" || password === "" || firstName === "" || lastName === "" || email === "" || birthday === "") {
+                    alert("You didn't insert one of the fields");
+                }
+                else if (username in users) {
+                    alert("This username is already exists");
+                }
+                else {
+                    users[username] = password;
+                    $("#lregisterForm")[0].reset();
+                    $(".startClass").hide();
+                    $(".preGameClass").hide();
+                    $(".gameClass").hide();
+                    $(".registerClass").hide();
+                    $(".loginClass").show();
+                    $(".aboutClass").hide();
+                }
+                return false;
+            });
         </script>
 
 	</body>
