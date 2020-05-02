@@ -210,6 +210,8 @@
                                        type="number"
                                        name="numberOfMonsters">
                             </div>
+                            <br>
+
                             <div class="form-row">
                                 <li onclick="startGamePreChechData();return true;" id="enterGame-submit-button" class="submitEnterGamebutton">
                                     <a href="#lest"  type="submit" style="vertical-align:middle"> SUBMIT</a></li>
@@ -241,6 +243,34 @@
                 </div>
 
             </section>
+
+            <section id="keyControlSection" class="keyControlClass">
+                <div id="instractionKeyControl" class="aboutBox">
+                    <div id="instractionKeyControlHeader" class="aboutBox">
+                        <h2>  pacman controls</h2>
+                    </div>
+                    <div id="instractionKeyControlbody" class="aboutBox">
+                        to control the pacman please choose you keys control.
+                        press the "choose" button and press on 4 keys on your keybord
+                    </div>
+                </div>
+                <div class="form-row">
+                    <li onclick="gameControlChooseR();return true;" id="PacmanControl-choose-buttonR" class="submitEnterGamebutton">
+                        <a href="#lest"   style="vertical-align:middle"> CHOOSE right button</a></li>
+                    <br>
+                    <li onclick="gameControlChooseL();return true;" id="PacmanControl-choose-buttonL" class="submitEnterGamebutton">
+                        <a href="#lest"   style="vertical-align:middle"> CHOOSE left button</a></li>
+                    <br>
+                    <li onclick="gameControlChooseU();return true;" id="PacmanControl-choose-buttonU" class="submitEnterGamebutton">
+                        <a href="#lest"   style="vertical-align:middle"> CHOOSE up button</a></li>
+                    <br>
+                    <li onclick="gameControlChooseD();return true;" id="PacmanControl-choose-buttonD" class="submitEnterGamebutton">
+                        <a href="#lest"   style="vertical-align:middle"> CHOOSE down button</a></li>
+                    <br>
+                    <li onclick="startGameSubmit();return true;" id="startGame-button" class="submitEnterGamebutton">
+                        <a href="#lest"  type="submit" style="vertical-align:middle"> Start GAME</a></li>
+                </div>
+            </section>
 		</div>
 
         <script type="text/javascript">
@@ -253,6 +283,7 @@
                 $(".preGameClass").hide();
                 $(".gameClass").hide();
                 $(".aboutClass").hide();
+                $(".keyControlClass").hide();
             });
             /////////////////////////////////////////////////////////////main bottoms
             $("#registerbutt").click(function () {
@@ -262,6 +293,7 @@
                 $(".loginClass").hide();
                 $(".registerClass").show();
                 $(".aboutClass").hide();
+                $(".keyControlClass").hide();
             })
 
             $("#loginbutt").click(function () {
@@ -271,6 +303,7 @@
                 $(".registerClass").hide();
                 $(".loginClass").show();
                 $(".aboutClass").hide();
+                $(".keyControlClass").hide();
             })
 
             ///////////////////////////////////////////////////////////////////////////////////// top bottoms
@@ -281,6 +314,7 @@
                 $(".registerClass").hide();
                 $(".loginClass").hide();
                 $(".aboutClass").show();
+                $(".keyControlClass").hide();
             })
 
             $("#LoginTOPbutt").click(function () {
@@ -290,6 +324,7 @@
                 $(".registerClass").hide();
                 $(".loginClass").show();
                 $(".aboutClass").hide();
+                $(".keyControlClass").hide();
             })
 
             $("#RegisterTOPbutt").click(function () {
@@ -299,6 +334,7 @@
                 $(".registerClass").show();
                 $(".loginClass").hide();
                 $(".aboutClass").hide();
+                $(".keyControlClass").hide();
             })
 
             $("#WelcomeTOPbutt").click(function () {
@@ -308,6 +344,7 @@
                 $(".registerClass").hide();
                 $(".loginClass").hide();
                 $(".aboutClass").hide();
+                $(".keyControlClass").hide();
             })
 
         </script>

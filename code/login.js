@@ -15,6 +15,7 @@ function startLoginCheck(){
         $(".loginClass").hide();
         $(".aboutClass").hide();
         $(".gameClass").hide();
+        $(".keyControlClass").hide();
     }
     function showLoginErea(){
         $(".startClass").hide();
@@ -23,6 +24,7 @@ function startLoginCheck(){
         $(".loginClass").show();
         $(".aboutClass").hide();
         $(".gameClass").hide();
+        $(".keyControlClass").hide();
     }
 
     function validetInfo(){

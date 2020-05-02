@@ -15,6 +15,7 @@ function startRegisterinCheck(){
         $(".loginClass").show();
         $(".aboutClass").hide();
         $(".gameClass").hide();
+        $(".keyControlClass").hide();
     }
     function showRegisterErea(){
         $(".startClass").hide();
@@ -23,6 +24,7 @@ function startRegisterinCheck(){
         $(".loginClass").hide();
         $(".aboutClass").hide();
         $(".gameClass").hide();
+        $(".keyControlClass").hide();
     }
 
     function validetInfo(){

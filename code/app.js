@@ -11,6 +11,12 @@ var thisCurGameData;
 var MonstersNumber;
 var BallsNumber;
 var durationTime;
+////////////////////////////////// control keys
+var rightBut;
+var leftBut;
+var downBut;
+var upBut;
+
 /////////////////////////////////////////////////////////////////////////////////////////////
 function newGame(gameStartInfo) {
 	startTheGame(gameStartInfo);
@@ -37,35 +43,61 @@ function startTheGame(gameStartInfo) {
 function Start(gameStartInfo) {
 	alert("New game has started. Good luck!");
 	thisCurGameData = gameStartInfo;
-	BallsNumber = thisCurGameData.numberOfBalls;
-	MonstersNumber = thisCurGameData.numberOfMonsters;
-	durationTime = thisCurGameData.DurationOfGame;
 
-	alert("chet info- balls num:" + BallsNumber);
-	alert("chet info- monster num:" + MonstersNumber);
-	alert("chet info- duration time:" + durationTime);
+	BallsNumber = thisCurGameData.numberOfBallsInput;
+	MonstersNumber = thisCurGameData.numberOfMonstersInput;
+	durationTime = thisCurGameData.DurationOfGameInput;
+	rightBut = thisCurGameData.rightBo;
+	leftBut = thisCurGameData.leftBo;
+	downBut = thisCurGameData.downBo;
+	upBut = thisCurGameData.upBo;
+	alert("contol keys check:  right: " +rightBut+ "  left: " +leftBut+  "  up: " + upBut+ "  down: "+downBut);
 
-	///////////////////////////////////////////////////////////////
+	//alert("chet info- balls num:" + BallsNumber);
+	//alert("chet info- monster num:" + MonstersNumber);
+	//alert("chet info- duration time:" + durationTime);
+
 	board = new Array();
 	score = 0;
 	pac_color = "yellow";
 	var cnt = 100;
-	var food_remain = 50;
+	var food_remain = BallsNumber; //var food_remain = 50;
 	var pacman_remain = 1;
 	start_time = new Date();
-	for (var i = 0; i < 10; i++) {
+	var wallRandom = Math.floor(Math.random()*100);
+	///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	if(wallRandom % 2 == 0){
+		alert("+");
+	}
+	else{
+		alert("-");
+	}
+	for( var i = 0; i < 10; i++ ){
 		board[i] = new Array();
-		//put obstacles in (i=3,j=3) and (i=3,j=4) and (i=3,j=5), (i=6,j=1) and (i=6,j=2)
-		for (var j = 0; j < 10; j++) {
-			if (
-				(i == 3 && j == 3) ||
-				(i == 3 && j == 4) ||
-				(i == 3 && j == 5) ||
-				(i == 6 && j == 1) ||
-				(i == 6 && j == 2)
-			) {
-				board[i][j] = 4;
-			} else {/////////////////////////////////////////////////////////////////// put the pacman,food
+		for(var j = 0; j < 10; j++){
+			if (wallRandom % 2 == 0) { ///////wall option 1
+				if ( (i == 3 && j == 3) || (i == 3 && j == 4) || (i == 3 && j == 5) || (i == 3 && j == 6)||
+					(i == 6 && j == 1) || (i == 6 && j == 2) || (i == 6 && j == 3)|| (i == 6 && j == 4) ||
+					(i == 2 && j == 8) || (i == 3 && j == 8) || (i == 4 && j == 8)|| (i == 5 && j == 8) ){
+					board[i][j] = 4;
+				}
+			}
+			else {///////////////////////walls option 2
+				if (  (i == 2 && j == 3) || (i == 2 && j == 4) || (i == 2 && j == 5) || (i == 2 && j == 6)||
+					(i == 4 && j == 2) || (i == 5 && j == 2) || (i == 6 && j == 2)|| (i == 7 && j == 2) ||
+					(i == 4 && j == 8) || (i == 5 && j == 8) || (i == 6 && j == 8)|| (i == 7 && j == 8) ){
+					board[i][j] = 4;
+				}
+			}
+		}
+	}
+	///////////////////////////////////////////////////////////////////
+	for( var i = 0; i < 10; i++ ){
+		for(var j = 0; j < 10; j++){
+			if( board[i][j]==4 ){
+				//do nothing there is a wall
+			}
+			else{
 				var randomNum = Math.random();
 				if (randomNum <= (1.0 * food_remain) / cnt) {
 					food_remain--;
