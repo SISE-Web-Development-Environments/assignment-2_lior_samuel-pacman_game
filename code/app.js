@@ -16,6 +16,13 @@ var monster2;
 var lives;
 var ballArray = [];
 var keyPress = 4;
+var player = document.getElementById("audioPlayer");
+var canvasWidth;
+var canvasHeight;
+var board_size = 20;
+let fiveColor = "#808000";
+let tenColor = "#778899";
+let fifteenColor = "#0000FF";
 ////////////////////////////////// control keys
 var rightBut;
 var leftBut;
@@ -39,7 +46,7 @@ function startTheGame(gameStartInfo) {
 function Start(gameStartInfo) {
 	alert("New game has started. Good luck!");
 	thisCurGameData = gameStartInfo;
-
+	$("#container_game").show();
 	BallsNumber = thisCurGameData.numberOfBallsInput;
 	MonstersNumber = thisCurGameData.numberOfMonstersInput;
 	durationTime = thisCurGameData.DurationOfGameInput;
@@ -58,10 +65,13 @@ function Start(gameStartInfo) {
 	//alert("chet info- balls num:" + BallsNumber);
 	//alert("chet info- monster num:" + MonstersNumber);
 	//alert("chet info- duration time:" + durationTime);
+	canvasWidth = document.getElementById("canvas").width;
+	canvasHeight =  document.getElementById("canvas").height;
 
 	board = new Array();
 	score = 0;
 	pac_color = "yellow";
+	lives = 3;
 	var cnt = 100;
 	var food_remain = BallsNumber; //var food_remain = 50;
 	ballCreation(food_remain);
@@ -121,6 +131,8 @@ function Start(gameStartInfo) {
 		board[emptyCell[0]][emptyCell[1]] = ballArray.pop();
 		food_remain--;
 	}
+	var emptyCell = findRandomEmptyCell(board);
+	board[emptyCell[0]][emptyCell[1]] = 8; // Pill Bonus of 50 points
 	keysDown = {};
 	addEventListener(
 		"keydown",
@@ -264,13 +276,16 @@ function UpdatePosition() {
 		score += 25;
 		BallsNumber--;
 	}
+	if (board[shape.i][shape.j] == 8) {
+		score += 35;
+	}
 	board[shape.i][shape.j] = 2;
 	var currentTime = new Date();
 	time_elapsed = (currentTime - start_time) / 1000;
-	if (score >= 20 && time_elapsed <= 10) {
+	if (score >= 100 && time_elapsed <= 100) {
 		pac_color = "green";
 	}
-	if (/*score == 50*/ BallsNumber == 0) {
+	if (BallsNumber == 0) {
 		window.clearInterval(interval);
 		window.alert("Game completed");
 	} else {
@@ -282,6 +297,7 @@ function Draw() {
 	canvas.width = canvas.width; //clean board
 	lblScore.value = score;      // the score display
 	lblTime.value = time_elapsed;// the time display
+	lblLives.value = lives;
 	for (var i = 0; i < 10; i++) {
 		for (var j = 0; j < 10; j++) {
 			var center = new Object();
@@ -347,26 +363,56 @@ function Draw() {
 				context.fillStyle = "black"; //color
 				context.fill();
 			} else if (board[i][j] == 4) {//walls
-				context.beginPath();
+				drawWall(center.x, center.y);
+				/*context.beginPath();
 				context.rect(center.x - 30, center.y - 30, 60, 60);
 				context.fillStyle = "grey"; //color
-				context.fill();
+				context.fill();*/
 			}else if (board[i][j] == 5 ) {// 5 = 5 points
-				context.beginPath();
-				context.arc(center.x, center.y, 15, 0, 2 * Math.PI); // circle
+				/*context.beginPath();
+				context.arc(center.x, center.y, 14, 0, 2 * Math.PI); // circle
 				context.fillStyle = "red"; //color
+				context.fill();*/
+
+				context.beginPath();
+				context.arc(center.x, center.y, 14, 0, 2 * Math.PI); // circle
+				var randomNum = Math.random();
+				context.fillStyle = fiveColor; //color
 				context.fill();
+				context.lineWidth = 2;
+				context.strokeStyle = '#003300';
+				context.stroke();
+
 			}else if (board[i][j] == 6) {//6 = 15 points
-				context.beginPath();
-				context.arc(center.x, center.y, 15, 0, 2 * Math.PI); // circle
+				/*context.beginPath();
+				context.arc(center.x, center.y, 17, 0, 2 * Math.PI); // circle
 				context.fillStyle = "green"; //color
-				context.fill();
-			}else if (board[i][j] == 7) {// 7 = 25 points
+				context.fill();*/
 				context.beginPath();
-				context.arc(center.x, center.y, 15, 0, 2 * Math.PI); // circle
-				context.fillStyle = "blue"; //color
+				context.arc(center.x, center.y, 17, 0, 2 * Math.PI); // circle
+				var randomNum = Math.random();
+				context.fillStyle = tenColor; //color
 				context.fill();
-		}
+				context.lineWidth = 2;
+				context.strokeStyle = '#003300';
+				context.stroke();
+
+			}else if (board[i][j] == 7) {// 7 = 25 points
+				/*context.beginPath();
+				context.arc(center.x, center.y, 20, 0, 2 * Math.PI); // circle
+				context.fillStyle = "blue"; //color
+				context.fill();*/
+				context.beginPath();
+				context.arc(center.x, center.y, 20, 0, 2 * Math.PI); // circle
+				var randomNum = Math.random();
+				context.fillStyle = fifteenColor; //color
+				context.fill();
+				context.lineWidth = 2;
+				context.strokeStyle = '#003300';
+				context.stroke();
+			}else if (board[i][j] == 8){
+				insertPill(center.x, center.y);
+			}
 		}
 	}
 }
@@ -391,9 +437,9 @@ function restartGame() {
 	newGame(gameStartInfo);
 }
 function endGame() {
-	if (lives == 0) alert("You Lost!");
-	if (timeLeft == 0 && score < 150) alert("You can do better");
-	else if (timeLeft == 0 && score > 150) alert("We have a winner");
+	if (lives == 0) alert("Loser!");
+	if (timeLeft == 0 && score < 100) alert("You are better than " + score + "points!");
+	else if (timeLeft == 0 && score > 100) alert("Winner!!!");
 	let gameStartInfo=thisCurGameData;
 	newGame(gameStartInfo);
 }
@@ -432,6 +478,7 @@ function pauseAudio() {
 }
 
 function stopGame() {
+	//player.pause();
 	clearInterval(interval);
 	// clearInterval(monster1Interval);
 	// if (numberOfMonsters >= 2) {
@@ -506,3 +553,20 @@ function shuffle(a) {
 	}
 	return a;
 }
+
+function drawWall(x_center, y_center) {
+	const c = document.getElementById("canvas");
+	const ctx = c.getContext("2d");
+	const img = new Image();
+	img.src = "wall.svg";
+	ctx.drawImage(img, x_center - 0.2 , y_center - 0.1 , 1.3 * (canvasWidth / board_size), 1.3 * (canvasHeight / board_size));
+}
+
+function insertPill(x_center, y_center) {
+	var c = document.getElementById("canvas");
+	var ctx = c.getContext("2d");
+	var img = new Image();
+	img.src = "img/cherry.svg";
+	ctx.drawImage(img, x_center, y_center, 0.9*(canvasWidth/board_size), 0.9*(canvasHeight/board_size));
+}
+

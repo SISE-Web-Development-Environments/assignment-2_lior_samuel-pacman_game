@@ -247,12 +247,54 @@
                     <input id="lblScore" type="text"/>
                     <h4>TIME:</h4>
                     <input id="lblTime" type="text"/>
-                    <h4>Lives</h4>
-                    <h5 id="lives"></h5>
+                    <h4>Lives :</h4>
+                    <input id="lblLives" type="text"/>
+                    <!--<h5 id="lives"></h5>-->
                 </div>
                 <div id="canvasBackground" class="canvasBackgroundClass">
                     <div id="CanvasGameArea" class="canvasClass" align="center">
                         <canvas id="canvas" height="600" width="600" style="border:10px solid #000000;"></canvas>
+                    </div>
+                </div>
+
+                <div class="container_game">
+                    <div class="row">
+                        <div class="col-sm">
+                            <span class="p5_ball">•</span>
+                        </div>
+                        <div class="col-sm">
+                            <span>5 points</span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm">
+                            <span class="p15_ball">•</span>
+                        </div>
+                        <div class="col-sm">
+                            <span>15 points</span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm">
+                            <span class="p25_ball">•</span>
+                        </div>
+                        <div class="col-sm">
+                            <span>25 points</span>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-sm">
+                            <span><img src="img/cherry.svg" width="20px" height="20px"> </span>
+                        </div>
+                        <div class="col-sm">
+                            <span>
+                                <details>
+                                    <summary>Cherry</summary>
+                                    <p>35 bonus points!!</p>
+                                </details>
+                            </span>
+                        </div>
                     </div>
                 </div>
 
@@ -286,6 +328,8 @@
                 </div>
             </section>
 		</div>
+
+        <audio id="audioPlayer" src="pacmanSong.mp3"></audio>
 
         <script type="text/javascript">
 
