@@ -43,12 +43,13 @@ function Start(gameStartInfo) {
 	downBut = thisCurGameData.downBo ;
 	upBut = thisCurGameData.upBo;
 	//alert("contol keys check:  right: " +rightBut+ "  left: " +leftBut+  "  up: " + upBut+ "  down: "+downBut);
+	alert("keys: "+ rightBut +" "+leftBut  +" " +downBut +" " +upBut);
+	alert("settings : "+ durationTime +" "+MonstersNumber  +" " +BallsNumber);
 	rightBut = parseInt(rightBut );
 	leftBut = parseInt( leftBut );
 	downBut = parseInt( downBut );
 	upBut = parseInt( upBut);
 	//alert("contol keys check:  right: "+rightBut+"  typOf: " +typeof(rightBut) );
-
 	//alert("chet info- balls num:" + BallsNumber);
 	//alert("chet info- monster num:" + MonstersNumber);
 	//alert("chet info- duration time:" + durationTime);

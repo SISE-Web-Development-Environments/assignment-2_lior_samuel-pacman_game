@@ -8,11 +8,9 @@ var upB;
 var downB;
 //////////////////////////////////////////////////////////////////////////////////////////////////////////section 1
 function chooseDefaultControl() {
-    submitInfoWithDefault()
     showGameErea();
+    submitInfoWithDefault()
 }
-
-
 function chooseCustomControl() {
     $(".startClass").hide();
     $(".preGameClass2").show();
