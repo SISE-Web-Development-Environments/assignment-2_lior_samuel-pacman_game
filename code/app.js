@@ -441,4 +441,4 @@ function showPreGameArea() {
 	$(".keyControlClass").hide();
 }
 
-///////////////
+/////////////////:
