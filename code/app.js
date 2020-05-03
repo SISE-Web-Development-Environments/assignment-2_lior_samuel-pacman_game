@@ -11,6 +11,11 @@ var thisCurGameData;
 var MonstersNumber;
 var BallsNumber;
 var durationTime;
+var monster1;
+var monster2;
+var lives;
+var ballArray = [];
+var keyPress = 4;
 ////////////////////////////////// control keys
 var rightBut;
 var leftBut;
@@ -59,6 +64,11 @@ function Start(gameStartInfo) {
 	pac_color = "yellow";
 	var cnt = 100;
 	var food_remain = BallsNumber; //var food_remain = 50;
+	ballCreation(food_remain);
+	var blueBall = BallsNumber*0.1 ;
+	var greenBall = BallsNumber*0.3 ;
+	var redBall = BallsNumber*0.6 ;
+	shuffle(ballArray);
 	var pacman_remain = 1;
 	start_time = new Date();
 	var wallRandom = Math.floor(Math.random()*100);
@@ -92,7 +102,7 @@ function Start(gameStartInfo) {
 				var randomNum = Math.random();
 				if (randomNum <= (1.0 * food_remain) / cnt) {
 					food_remain--;
-					board[i][j] = 1;
+					board[i][j] = ballArray.pop();;
 				} else if (randomNum < (1.0 * (pacman_remain + food_remain)) / cnt) {
 					shape.i = i;
 					shape.j = j;
@@ -107,7 +117,8 @@ function Start(gameStartInfo) {
 	}
 	while (food_remain > 0) {////////////////////////////////////////////////////// fill board with food
 		var emptyCell = findRandomEmptyCell(board);
-		board[emptyCell[0]][emptyCell[1]] = 1;
+		//board[emptyCell[0]][emptyCell[1]] = 1;
+		board[emptyCell[0]][emptyCell[1]] = ballArray.pop();
 		food_remain--;
 	}
 	keysDown = {};
@@ -238,8 +249,20 @@ function UpdatePosition() {
 			shape.i++;
 		}
 	}
-	if (board[shape.i][shape.j] == 1) {
+	/*if (board[shape.i][shape.j] == 1) {
 		score++;
+	}*/
+	if (board[shape.i][shape.j] == 5){
+		score += 5;
+		BallsNumber--;
+	}
+	if (board[shape.i][shape.j] == 6) {
+		score += 15;
+		BallsNumber--;
+	}
+	if (board[shape.i][shape.j] == 7) {
+		score += 25;
+		BallsNumber--;
 	}
 	board[shape.i][shape.j] = 2;
 	var currentTime = new Date();
@@ -247,7 +270,7 @@ function UpdatePosition() {
 	if (score >= 20 && time_elapsed <= 10) {
 		pac_color = "green";
 	}
-	if (score == 50) {
+	if (/*score == 50*/ BallsNumber == 0) {
 		window.clearInterval(interval);
 		window.alert("Game completed");
 	} else {
@@ -328,7 +351,22 @@ function Draw() {
 				context.rect(center.x - 30, center.y - 30, 60, 60);
 				context.fillStyle = "grey"; //color
 				context.fill();
-			}
+			}else if (board[i][j] == 5 ) {// 5 = 5 points
+				context.beginPath();
+				context.arc(center.x, center.y, 15, 0, 2 * Math.PI); // circle
+				context.fillStyle = "red"; //color
+				context.fill();
+			}else if (board[i][j] == 6) {//6 = 15 points
+				context.beginPath();
+				context.arc(center.x, center.y, 15, 0, 2 * Math.PI); // circle
+				context.fillStyle = "green"; //color
+				context.fill();
+			}else if (board[i][j] == 7) {// 7 = 25 points
+				context.beginPath();
+				context.arc(center.x, center.y, 15, 0, 2 * Math.PI); // circle
+				context.fillStyle = "blue"; //color
+				context.fill();
+		}
 		}
 	}
 }
@@ -443,3 +481,28 @@ function showPreGameArea() {
 }
 
 /////////////////:
+
+function ballCreation(remainingBalls) {
+	if (remainingBalls > 0) {
+		for (let i = 0; i < remainingBalls * 0.6; i++) {
+			ballArray.push(5);
+		}
+
+		for (let i = 0; i < remainingBalls * 0.3; i++) {
+			ballArray.push(6);
+		}
+
+		for (let i = 0; i < remainingBalls * 0.1; i++) {
+			ballArray.push(7);
+		}
+	}
+
+}
+
+function shuffle(a) {
+	for (let i = a.length - 1; i > 0; i--) {
+		const j = Math.floor(Math.random() * (i + 1));
+		[a[i], a[j]] = [a[j], a[i]];
+	}
+	return a;
+}
