@@ -10,7 +10,8 @@ function startRegisterinCheck(){
 
     function showLoginErea(){
         $(".startClass").hide();
-        $(".preGameClass").hide()
+        $(".preGameClass1").hide();
+        $(".preGameClass2").hide();
         $(".registerClass").hide();
         $(".loginClass").show();
         $(".aboutClass").hide();
@@ -19,7 +20,8 @@ function startRegisterinCheck(){
     }
     function showRegisterErea(){
         $(".startClass").hide();
-        $(".preGameClass").hide()
+        $(".preGameClass1").hide();
+        $(".preGameClass2").hide();
         $(".registerClass").show();
         $(".loginClass").hide();
         $(".aboutClass").hide();

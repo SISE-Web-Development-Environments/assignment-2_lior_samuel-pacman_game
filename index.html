@@ -176,12 +176,9 @@
                 </div>
             </section>
 
-            <section id="preGameSection" class="preGameClass">
+            <section id="preGameSection2" class="preGameClass2">
                 <div id="preGameArea" class="preGameAreaClass">
                     <div id="preGameArea1" class="preGameAreaClass2">
-                        <div class="pageHeader">
-                            <p id="preGameTitle"> Welcome To Pre Game Panel</p>
-                        </div>
                         <form id="preGameForm" class="preGameFormClass">
                             <label for="numberOfBalls">Number of balls</label>
                             <div class="input-group">
@@ -221,9 +218,26 @@
                 </div>
             </section>
 
+            <section id="preGameSection1" class="preGameClass1">
+                <div class="pageHeader">
+                    <p id="preGameTitle"> Welcome To Pre Game Panel</p>
+                    <p id="preGameinstractions1"> please choose game control settings:</p>
+                    <p id="preGameinstractions2"> you have two options:  -custom control  -default control</p>
+                </div>
+                <br>
+                <div class="form-row">
+                    <li onclick="chooseCustomControl();return true;" id="customControlButtom" class="submitEnterGamebutton">
+                        <a href="#lest"  type="submit" style="vertical-align:middle"> Custom Control</a></li>
+                </div>
+                <div class="form-row">
+                    <li onclick="chooseDefaultControl();return true;" id="defaultControlButtom" class="submitEnterGamebutton">
+                        <a href="#lest"  type="submit" style="vertical-align:middle"> Default Control</a></li>
+                </div>
+            </section>
+
             <section id="gameSection" class="gameClass">
                 <div id="" class="" >
-                    <button onclick="newGame();return true;" id="newGameButton" class="Gamebutton">New Game</button>
+                    <button onclick="newGameFromTheGame();return true;" id="newGameButton" class="Gamebutton">New Game</button>
                     <button onclick="restartGame();return true;" id="restartButton" class="Gamebutton">Restart Game</button>
                 </div>
                 <div id="gameInfo" class="gameHeaderClass" align="center">
@@ -280,7 +294,8 @@
                 $(".startClass").show();
                 $(".registerClass").hide();
                 $(".loginClass").hide();
-                $(".preGameClass").hide();
+                $(".preGameClass1").hide();
+                $(".preGameClass2").hide();
                 $(".gameClass").hide();
                 $(".aboutClass").hide();
                 $(".keyControlClass").hide();
@@ -288,7 +303,8 @@
             /////////////////////////////////////////////////////////////main bottoms
             $("#registerbutt").click(function () {
                 $(".startClass").hide();
-                $(".preGameClass").hide();
+                $(".preGameClass1").hide();
+                $(".preGameClass2").hide()
                 $(".gameClass").hide();
                 $(".loginClass").hide();
                 $(".registerClass").show();
@@ -298,7 +314,8 @@
 
             $("#loginbutt").click(function () {
                 $(".startClass").hide();
-                $(".preGameClass").hide();
+                $(".preGameClass1").hide();
+                $(".preGameClass2").hide()
                 $(".gameClass").hide();
                 $(".registerClass").hide();
                 $(".loginClass").show();
@@ -309,7 +326,8 @@
             ///////////////////////////////////////////////////////////////////////////////////// top bottoms
             $("#AboutTOPbutt").click(function () {
                 $(".startClass").hide();
-                $(".preGameClass").hide();
+                $(".preGameClass1").hide();
+                $(".preGameClass2").hide()
                 $(".gameClass").hide();
                 $(".registerClass").hide();
                 $(".loginClass").hide();
@@ -319,7 +337,8 @@
 
             $("#LoginTOPbutt").click(function () {
                 $(".startClass").hide();
-                $(".preGameClass").hide();
+                $(".preGameClass1").hide();
+                $(".preGameClass2").hide()
                 $(".gameClass").hide();
                 $(".registerClass").hide();
                 $(".loginClass").show();
@@ -329,7 +348,8 @@
 
             $("#RegisterTOPbutt").click(function () {
                 $(".startClass").hide();
-                $(".preGameClass").hide();
+                $(".preGameClass1").hide();
+                $(".preGameClass2").hide()
                 $(".gameClass").hide();
                 $(".registerClass").show();
                 $(".loginClass").hide();
@@ -339,7 +359,8 @@
 
             $("#WelcomeTOPbutt").click(function () {
                 $(".startClass").show();
-                $(".preGameClass").hide();
+                $(".preGameClass1").hide();
+                $(".preGameClass2").hide()
                 $(".gameClass").hide();
                 $(".registerClass").hide();
                 $(".loginClass").hide();

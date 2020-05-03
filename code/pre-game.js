@@ -6,7 +6,24 @@ var rightB;
 var leftB;
 var upB;
 var downB;
+//////////////////////////////////////////////////////////////////////////////////////////////////////////section 1
+function chooseDefaultControl() {
+    submitInfoWithDefault()
+    showGameErea();
+}
 
+
+function chooseCustomControl() {
+    $(".startClass").hide();
+    $(".preGameClass2").show();
+    $(".preGameClass1").hide();
+    $(".registerClass").hide();
+    $(".loginClass").hide();
+    $(".aboutClass").hide();
+    $(".gameClass").hide();
+    $(".keyControlClass").hide();
+}
+///////////////////////////////////////////////////////////////////////////////////////////////////////////section 2
 function gameControlChooseR(){
     window.onkeyup = function (event) {
         rightB = event.key.toUpperCase();
@@ -28,7 +45,6 @@ function gameControlChooseU(){
     }
 }
 function startGameSubmit(){
-    alert("keys: "+ rightB +" "+leftB  +" " +downB +" " +upB);
     showGameErea()
     submitInfo();
 }
@@ -49,7 +65,8 @@ function startGamePreChechData(){
 //////////////////////////////////////////////////////////////////////
 function showkeyControlSection(){
     $(".startClass").hide();
-    $(".preGameClass").hide();
+    $(".preGameClass2").hide();
+    $(".preGameClass1").hide();
     $(".registerClass").hide();
     $(".loginClass").hide();
     $(".aboutClass").hide();
@@ -58,7 +75,8 @@ function showkeyControlSection(){
 }
 function showGameErea(){
     $(".startClass").hide();
-    $(".preGameClass").hide();
+    $(".preGameClass2").hide();
+    $(".preGameClass1").hide();
     $(".registerClass").hide();
     $(".loginClass").hide();
     $(".aboutClass").hide();
@@ -88,7 +106,7 @@ function validetInfo(){
 }//func
 
 function submitInfo() {
-    newGame(gameStartInfo());
+    newGameFromControl(gameStartInfo());
 }
 
 function gameStartInfo() {
@@ -99,6 +117,43 @@ function gameStartInfo() {
     const leftBo = leftB;
     const upBo = upB;
     const downBo = downB;
-
+    alert("keys: "+ rightBo +" "+leftBo  +" " +downBo +" " +upBo);
     return {numberOfBallsInput, DurationOfGameInput, numberOfMonstersInput, rightBo, leftBo, upBo, downBo};
+}
+//////////////////////////////////////////
+function submitInfoWithDefault() {
+    newGameFromControl(gameStartInfoWithDefault());
+}
+
+function gameStartInfoWithDefault() {
+    let randDefaultOption = Math.floor(Math.random()*100);
+    let DurationOfGameInput ;
+    let numberOfMonstersInput ;
+    let numberOfBallsInput ;
+    if(randDefaultOption>60){
+        DurationOfGameInput = 60;
+        numberOfMonstersInput = 1;
+        numberOfBallsInput = 60;
+
+    }
+    else if(randDefaultOption>30 && randDefaultOption<60) {
+        DurationOfGameInput = 70;
+        numberOfMonstersInput = 2;
+        numberOfBallsInput = 70;
+    }
+    else{
+        DurationOfGameInput = 80;
+        numberOfMonstersInput = 3;
+        numberOfBallsInput = 80;
+    }
+    const DurationOfGameInputF = DurationOfGameInput;
+    const numberOfMonstersInputF = numberOfMonstersInput;
+    const numberOfBallsInputF = numberOfBallsInput;
+    const rightBoF = 39;
+    const leftBoF = 37;
+    const upBoF = 38;
+    const downBoF = 40;
+    alert("keys: "+ rightBoF +" "+leftBoF  +" " +downBoF +" " +upBoF);
+    alert("settings : "+ DurationOfGameInputF +" "+numberOfMonstersInputF  +" " +numberOfBallsInputF);
+    return {numberOfBallsInputF, DurationOfGameInputF, numberOfMonstersInputF, rightBoF, leftBoF, upBoF, downBoF};
 }

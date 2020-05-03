@@ -19,14 +19,6 @@ var upBut;
 var curentKeyPress;
 var curentdirection;
 /////////////////////////////////////////////////////////////////////////////////////////////
-function newGame(gameStartInfo) {
-	startTheGame(gameStartInfo);
-}
-
-function restartGame(gameStartInfo) {
-	alert("game restarted, New game has started. Good luck!");
-	startTheGame(gameStartInfo);
-}
 
 function startTheGame(gameStartInfo) {
 	var canvas = document.getElementById("canvas");
@@ -264,8 +256,8 @@ function UpdatePosition() {
 
 function Draw() {
 	canvas.width = canvas.width; //clean board
-	lblScore.value = score;
-	lblTime.value = time_elapsed;
+	lblScore.value = score;      // the score display
+	lblTime.value = time_elapsed;// the time display
 	for (var i = 0; i < 10; i++) {
 		for (var j = 0; j < 10; j++) {
 			var center = new Object();
@@ -338,4 +330,113 @@ function Draw() {
 			}
 		}
 	}
+}
+
+
+
+
+
+/////////////////////////////////////////////////////////////////////////////////////////////////game restart and new game control
+function newGameFromControl(gameStartInfo) {
+	startTheGame(gameStartInfo);
+}
+
+function restartGame(gameStartInfo) {
+	alert("game restarted, New game has started. Good luck!");
+	newGame();
+}
+
+function restartGame() {
+	alert("game restarted, New game has started. Good luck!");
+	let gameStartInfo=thisCurGameData;
+	newGame(gameStartInfo);
+}
+function endGame() {
+	if (lives == 0) alert("You Lost!");
+	if (timeLeft == 0 && score < 150) alert("You can do better");
+	else if (timeLeft == 0 && score > 150) alert("We have a winner");
+	let gameStartInfo=thisCurGameData;
+	newGame(gameStartInfo);
+}
+
+function newGame(gameStartInfo) {
+	stopGame();
+	context= undefined;
+	shape = new Object();
+	board= undefined;
+	score= undefined;
+	pac_color= undefined;
+	start_time= undefined;
+	time_elapsed= undefined;
+	interval= undefined;
+/////////////////////////////////my vars
+	thisCurGameData= undefined;
+	MonstersNumber= undefined;
+	BallsNumber= undefined;
+	durationTime= undefined;
+////////////////////////////////// control keys
+	rightBut= undefined;
+	leftBut= undefined;
+	downBut= undefined;
+	upBut= undefined;
+	curentKeyPress= undefined;
+	curentdirection= undefined;
+	startTheGame(gameStartInfo);
+}
+
+function playAudio() {
+	//music.play();
+}
+
+function pauseAudio() {
+	//music.pause();
+}
+
+function stopGame() {
+	clearInterval(interval);
+	// clearInterval(monster1Interval);
+	// if (numberOfMonsters >= 2) {
+	// 	clearInterval(monster2Interval);
+	// }
+	// if (numberOfMonsters >= 3) {
+	// 	clearInterval(monster3Interval);
+	// }
+	// clearInterval(catchMeInterval);
+	// clearInterval(timeInterval);
+	// pauseAudio();
+}
+
+function newGameFromTheGame() {
+	stopGame();
+	context= undefined;
+	shape = new Object();
+	board= undefined;
+	score= undefined;
+	pac_color= undefined;
+	start_time= undefined;
+	time_elapsed= undefined;
+	interval= undefined;
+/////////////////////////////////my vars
+	thisCurGameData= undefined;
+	MonstersNumber= undefined;
+	BallsNumber= undefined;
+	durationTime= undefined;
+////////////////////////////////// control keys
+	rightBut= undefined;
+	leftBut= undefined;
+	downBut= undefined;
+	upBut= undefined;
+	curentKeyPress= undefined;
+	curentdirection= undefined;
+	showPreGameArea();
+}
+function showPreGameArea() {
+	$(".startClass").hide();
+	$(".preGameClass1").show();
+	$(".preGameClass2").hide();
+	$(".registerClass").hide();
+	$(".loginClass").hide();
+	$(".aboutClass").hide();
+	$(".gameClass").hide();
+	$(".keyControlClass").hide();
 }
