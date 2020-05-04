@@ -6,6 +6,7 @@ var pac_color;
 var start_time;
 var time_elapsed;
 var interval;
+var interval1;
 /////////////////////////////////my vars
 var thisCurGameData;
 var MonstersNumber;
@@ -16,13 +17,12 @@ var monster2;
 var lives;
 var ballArray = [];
 var keyPress = 4;
-var player = document.getElementById("audioPlayer");
+var backgroundMusic = new Audio("pacmanSong.mp3");
 var canvasWidth;
 var canvasHeight;
 var board_size = 20;
-let fiveColor = "#808000";
-let tenColor = "#778899";
-let fifteenColor = "#0000FF";
+var candyX;
+var candyY;
 ////////////////////////////////// control keys
 var rightBut;
 var leftBut;
@@ -46,7 +46,7 @@ function startTheGame(gameStartInfo) {
 function Start(gameStartInfo) {
 	alert("New game has started. Good luck!");
 	thisCurGameData = gameStartInfo;
-	$("#container_game").show();
+	//playAudio();
 	BallsNumber = thisCurGameData.numberOfBallsInput;
 	MonstersNumber = thisCurGameData.numberOfMonstersInput;
 	durationTime = thisCurGameData.DurationOfGameInput;
@@ -112,7 +112,7 @@ function Start(gameStartInfo) {
 				var randomNum = Math.random();
 				if (randomNum <= (1.0 * food_remain) / cnt) {
 					food_remain--;
-					board[i][j] = ballArray.pop();;
+					board[i][j] = ballArray.pop();
 				} else if (randomNum < (1.0 * (pacman_remain + food_remain)) / cnt) {
 					shape.i = i;
 					shape.j = j;
@@ -132,7 +132,11 @@ function Start(gameStartInfo) {
 		food_remain--;
 	}
 	var emptyCell = findRandomEmptyCell(board);
-	board[emptyCell[0]][emptyCell[1]] = 8; // Pill Bonus of 50 points
+	board[emptyCell[0]][emptyCell[1]] = 8; // Cherry Bonus of 35 points
+	emptyCell = findCellForCandy(board);
+	board[emptyCell[0]][emptyCell[1]] = 9; // Candy Bonus of 50 points
+	candyX = emptyCell[0];
+	candyY = emptyCell[1];
 	keysDown = {};
 	addEventListener(
 		"keydown",
@@ -169,6 +173,7 @@ function Start(gameStartInfo) {
 	curentdirection=1;
 
 	interval = setInterval(UpdatePosition, 250);///////////////////change time by user choice
+	interval1 = setInterval(updateCandyPosition, 2000);
 }
 
 function findRandomEmptyCell(board) {///////////////////////////////// find empty cell...to put food in
@@ -279,7 +284,18 @@ function UpdatePosition() {
 	if (board[shape.i][shape.j] == 8) {
 		score += 35;
 	}
+	if (board[shape.i][shape.j] == 9) {
+		score += 50;
+		candyX = 26;
+		candyY = 26;
+	}
 	board[shape.i][shape.j] = 2;
+	//Move the candy
+	/*var nextCandyCell = moveCandy(board,candyX,candyY);
+	board[candyX][candyY] = 0;
+	board[nextCandyCell[0]][nextCandyCell[1]] = 9;
+	candyX = nextCandyCell[0];
+	candyY = nextCandyCell[1];*/
 	var currentTime = new Date();
 	time_elapsed = (currentTime - start_time) / 1000;
 	if (score >= 100 && time_elapsed <= 100) {
@@ -369,55 +385,57 @@ function Draw() {
 				context.fillStyle = "grey"; //color
 				context.fill();*/
 			}else if (board[i][j] == 5 ) {// 5 = 5 points
-				/*context.beginPath();
-				context.arc(center.x, center.y, 14, 0, 2 * Math.PI); // circle
+				context.beginPath();
+				context.arc(center.x, center.y, 13, 0, 2 * Math.PI); // circle
 				context.fillStyle = "red"; //color
-				context.fill();*/
-
-				context.beginPath();
-				context.arc(center.x, center.y, 14, 0, 2 * Math.PI); // circle
-				var randomNum = Math.random();
-				context.fillStyle = fiveColor; //color
 				context.fill();
-				context.lineWidth = 2;
-				context.strokeStyle = '#003300';
-				context.stroke();
-
+				context.font = "15px Arial";
+				context.fillStyle = "white"; //color of text
+				context.fillText("5", center.x - 4.5, center.y + 5);
 			}else if (board[i][j] == 6) {//6 = 15 points
-				/*context.beginPath();
-				context.arc(center.x, center.y, 17, 0, 2 * Math.PI); // circle
+				context.beginPath();
+				context.arc(center.x, center.y, 15, 0, 2 * Math.PI); // circle
 				context.fillStyle = "green"; //color
-				context.fill();*/
-				context.beginPath();
-				context.arc(center.x, center.y, 17, 0, 2 * Math.PI); // circle
-				var randomNum = Math.random();
-				context.fillStyle = tenColor; //color
 				context.fill();
-				context.lineWidth = 2;
-				context.strokeStyle = '#003300';
-				context.stroke();
-
+				context.font = "18px Arial";
+				context.fillStyle = "white"; //color of text
+				context.fillText("15", center.x - 11, center.y + 7);
 			}else if (board[i][j] == 7) {// 7 = 25 points
-				/*context.beginPath();
-				context.arc(center.x, center.y, 20, 0, 2 * Math.PI); // circle
-				context.fillStyle = "blue"; //color
-				context.fill();*/
 				context.beginPath();
-				context.arc(center.x, center.y, 20, 0, 2 * Math.PI); // circle
-				var randomNum = Math.random();
-				context.fillStyle = fifteenColor; //color
+				context.arc(center.x, center.y, 18, 0, 2 * Math.PI); // circle
+				context.fillStyle = "blue"; //color
 				context.fill();
-				context.lineWidth = 2;
-				context.strokeStyle = '#003300';
-				context.stroke();
-			}else if (board[i][j] == 8){
+				context.font = "20px Arial";
+				context.fillStyle = "white"; //color of text
+				context.fillText("25", center.x - 11, center.y + 8);
+			}else if (board[i][j] == 8) {
 				insertPill(center.x, center.y);
+			}else if (board[i][j] === 9) { // Candy
+				context.beginPath();
+				context.arc(center.x, center.y, 10, 0, 2 * Math.PI); // circle
+				let my_gradient = context.createLinearGradient(center.x - 7, center.y - 7, center.x + 7, center.y + 7);
+				my_gradient.addColorStop(0, "red");
+				my_gradient.addColorStop(0.5, "white");
+				my_gradient.addColorStop(1, "red");
+				context.fillStyle = my_gradient;
+				context.fill();
+				context.closePath();
+				context.beginPath();
+				context.lineTo(center.x, center.y);
+				context.lineTo(center.x - 15, center.y - 7);
+				context.lineTo(center.x - 7, center.y - 15);
+				context.fill();
+				context.closePath();
+				context.beginPath();
+				context.lineTo(center.x, center.y);
+				context.lineTo(center.x + 15, center.y + 7);
+				context.lineTo(center.x + 7, center.y + 15);
+				context.fill();
+				context.closePath();
 			}
 		}
 	}
 }
-
-
 
 
 
@@ -470,15 +488,15 @@ function newGame(gameStartInfo) {
 }
 
 function playAudio() {
-	//music.play();
+	backgroundMusic.play();
 }
 
 function pauseAudio() {
-	//music.pause();
+	backgroundMusic.pause();
 }
 
 function stopGame() {
-	//player.pause();
+	pauseAudio();
 	clearInterval(interval);
 	// clearInterval(monster1Interval);
 	// if (numberOfMonsters >= 2) {
@@ -568,5 +586,54 @@ function insertPill(x_center, y_center) {
 	var img = new Image();
 	img.src = "img/cherry.svg";
 	ctx.drawImage(img, x_center, y_center, 0.9*(canvasWidth/board_size), 0.9*(canvasHeight/board_size));
+	ctx.fillStyle = "red";
+	ctx.fillText("Bonus",x_center,y_center);
+
 }
 
+function findCellForCandy(board) {///////////////////////////////// find empty cell...to put food in
+	for( var i = 0; i < 10; i++ ) {
+		for (var j = 0; j < 10; j++) {
+			if (board[i][j] == 0) {
+				return [i, j];
+			}
+		}
+	}
+}
+
+function moveCandy(board,x,y){
+	var i = Math.floor(Math.random() * 4 + 1);
+	flag = false;
+	while(flag == false){
+		if ((x+1) < 10 && board[x+1][y] != 4 && i == 1){
+			flag == true;
+			return [x+1,y];
+		}
+		if ((x-1) > 0 && board[x-1][y] != 4 && i == 2){
+			flag == true;
+			return [x-1,y];
+		}
+		if ((y+1) < 10 && board[x][y+1] != 4 && i == 3){
+			flag == true;
+			return [x,y+1];
+		}
+		if ((y-1) > 0 && board[x][y-1] != 4 && i == 4){
+			flag == true;
+			return [x,y-1];
+		}
+		i = Math.floor(Math.random() * 4 + 1);
+	}
+}
+
+function updateCandyPosition(){
+	if(board[candyX][candyY] == 2 ){
+
+	}else{
+		var nextCandyCell = moveCandy(board,candyX,candyY);
+		board[candyX][candyY] = 0;
+		board[nextCandyCell[0]][nextCandyCell[1]] = 9;
+		candyX = nextCandyCell[0];
+		candyY = nextCandyCell[1];
+	}
+
+}
