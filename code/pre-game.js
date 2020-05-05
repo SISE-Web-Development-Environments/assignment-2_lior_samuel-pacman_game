@@ -119,6 +119,8 @@ function gameStartInfo() {
     return {numberOfBallsInput, DurationOfGameInput, numberOfMonstersInput, rightBo, leftBo, upBo, downBo};
 }
 //////////////////////////////////////////
+
+
 function submitInfoWithDefault() {
     newGameFromControl(gameStartInfoWithDefault());
 }
@@ -132,7 +134,6 @@ function gameStartInfoWithDefault() {
         DurationOfGameInput = 60;
         numberOfMonstersInput = 1;
         numberOfBallsInput = 60;
-
     }
     else if(randDefaultOption>30 && randDefaultOption<60) {
         DurationOfGameInput = 70;

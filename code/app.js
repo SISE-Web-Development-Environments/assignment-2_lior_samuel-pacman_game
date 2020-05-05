@@ -10,6 +10,7 @@ var pac_color;
 var start_time;
 var time_left;
 var time_elapsed;
+var interval1;
 var interval;
 var monster1Interval = undefined;
 var monster2Interval = undefined;
@@ -29,6 +30,15 @@ var downBut;
 var upBut;
 var curentKeyPress;
 var curentdirection;
+////////////////////////////music
+var backgroundMusic = new Audio("music/pacmanSong.mp3");
+var canvasWidth;
+var canvasHeight;
+var board_size = 20;
+var candyX;
+var candyY;
+var canvasWidth;
+var canvasHeight;
 /////////////////////////////////////////////////////////////////////////////////////////////
 
 function startTheGame(gameStartInfo) {
@@ -65,7 +75,10 @@ function Start(gameStartInfo) {
 	//alert("chet info- balls num:" + BallsNumber);
 	//alert("chet info- monster num:" + MonstersNumber);
 	//alert("chet info- duration time:" + durationTime);
-	monster1Cord = undefined;
+    canvasWidth = document.getElementById("canvas").width;//////////////////
+    canvasHeight =  document.getElementById("canvas").height;//////////////
+
+    monster1Cord = undefined;
 	monster2Cord = undefined;
 	monster3Cord = undefined;
 	monster4Cord = undefined;
@@ -119,14 +132,14 @@ function Start(gameStartInfo) {
 			monsterNum++;
 
 			if(randomNumForMonsterKind > 50){////monster type
-				board[ Iindex ][ Jindex ] = 8;
+				board[ Iindex ][ Jindex ] = 10;
 				if( monsterNum==1 ){  monster1Cord = {x: Iindex, y: Jindex, z:8}; }////////////////position the monsters in the board
 				else if( monsterNum==2 ){ monster2Cord = {x: Iindex, y: Jindex, z:8 }; }
 				else if( monsterNum==3 ){ monster3Cord = {x: Iindex, y: Jindex, z:8 }; }
 				else if( monsterNum==4 ){ monster4Cord = {x: Iindex, y: Jindex, z:8 }; }
 			}
 			else{
-				board[ Iindex ][ Jindex ] = 9;
+				board[ Iindex ][ Jindex ] = 11;
 				if( monsterNum==1 ){  monster1Cord = {x: Iindex, y: Jindex, z:9}; }////////////////position the monsters in the board
 				else if( monsterNum==2 ){ monster2Cord = {x: Iindex, y: Jindex, z:9 }; }
 				else if( monsterNum==3 ){ monster3Cord = {x: Iindex, y: Jindex, z:9 }; }
@@ -158,7 +171,7 @@ function Start(gameStartInfo) {
 	alert("enter zone 3");
 	for( var i = 0; i < 10; i++ ){
 		for(var j = 0; j < 10; j++){
-			if( board[i][j]==4 || board[i][j]==8 || board[i][j]==9){
+			if( board[i][j]==4 || board[i][j]==10 || board[i][j]==11){
 				//do nothing there is a wall or monster
 			}
 			else{
@@ -181,7 +194,7 @@ function Start(gameStartInfo) {
 
 	for( var i = 0; i < 10; i++ ){
 		for( var j = 0; j < 10; j++ ){
-			if( board[i][j]==8 || board[i][j]==9 ){
+			if( board[i][j]==10 || board[i][j]==11 ){
 				board[i][j]==0;
 			}
 		}
@@ -192,6 +205,13 @@ function Start(gameStartInfo) {
 		board[emptyCell[0]][emptyCell[1]] = ballArray.pop();
 		food_remain--;
 	}
+    var emptyCell = findRandomEmptyCell(board);
+    board[emptyCell[0]][emptyCell[1]] = 8; // Cherry Bonus of 35 points
+    emptyCell = findCellForCandy(board);
+    board[emptyCell[0]][emptyCell[1]] = 9; // Candy Bonus of 50 points
+    candyX = emptyCell[0];
+    candyY = emptyCell[1];
+
 	keysDown = {};
 	addEventListener(
 		"keydown",
@@ -211,8 +231,9 @@ function Start(gameStartInfo) {
 	);
 	alert("enter zone 4");
 	curentdirection=1;
+	playAudio();
 	interval = setInterval(UpdatePosition, 250);///////////////////change time by user choice
-
+    interval1 = setInterval(updateCandyPosition, 2000);
 	monster1Interval = setInterval(moveMonster1, 750);
 	if (numberOfMonsters >= 2) {
 		monster2Interval = setInterval(moveMonster2, 750);
@@ -333,11 +354,19 @@ function UpdatePosition() {
 		score += 25;
 		BallsNumber--;
 	}
-
+    if (board[shape.i][shape.j] == 8) {
+        score += 35;
+    }
+    if (board[shape.i][shape.j] == 9) {
+        score += 50;
+        candyX = 26;
+        candyY = 26;
+    }
 	board[shape.i][shape.j] = 2;
+
 	var currentTime = new Date();
 	time_elapsed = (currentTime - start_time) / 1000;
-	if (score >= 300 && time_elapsed <= 20) {////////////////////////////////////////////pacman green transformation settings
+	if (score >= 300 && time_elapsed <= 25) {////////////////////////////////////////////pacman green transformation settings
 		pac_color = "green";
 	}
 	if ( BallsNumber == 0) {
@@ -345,6 +374,7 @@ function UpdatePosition() {
 		endGame();
 	}
 	else if( time_left==0){
+		alert("time is up !!")
 		endGame();
 	}
 	else {
@@ -635,29 +665,67 @@ function Draw() {
 				context.fill();
 			}
 			else if (board[i][j] == 4) {//walls
+			    ///////////////////////////////option 1
 				context.beginPath();
 				context.rect(center.x - 30, center.y - 30, 60, 60);
 				context.fillStyle = "grey"; //color
 				context.fill();
+                //////////////////////////////option 2
+                //drawWall(center.x, center.y);
 			}
 			else if (board[i][j] == 5 ) {// 5 = 5 points
-				context.beginPath();
-				context.arc(center.x, center.y, 15, 0, 2 * Math.PI); // circle
-				context.fillStyle = "red"; //color
-				context.fill();
+                context.beginPath();
+                context.arc(center.x, center.y, 13, 0, 2 * Math.PI); // circle
+                context.fillStyle = "red"; //color
+                context.fill();
+                context.font = "15px Arial";
+                context.fillStyle = "white"; //color of text
+                context.fillText("5", center.x - 4.5, center.y + 5);
 			}
 			else if (board[i][j] == 6) {//6 = 15 points
-				context.beginPath();
-				context.arc(center.x, center.y, 15, 0, 2 * Math.PI); // circle
-				context.fillStyle = "green"; //color
-				context.fill();
+                context.beginPath();
+                context.arc(center.x, center.y, 15, 0, 2 * Math.PI); // circle
+                context.fillStyle = "green"; //color
+                context.fill();
+                context.font = "18px Arial";
+                context.fillStyle = "white"; //color of text
+                context.fillText("15", center.x - 11, center.y + 7);
 			}
 			else if (board[i][j] == 7) {// 7 = 25 points
-				context.beginPath();
-				context.arc(center.x, center.y, 15, 0, 2 * Math.PI); // circle
-				context.fillStyle = "blue"; //color
-				context.fill();
+                context.beginPath();
+                context.arc(center.x, center.y, 18, 0, 2 * Math.PI); // circle
+                context.fillStyle = "blue"; //color
+                context.fill();
+                context.font = "20px Arial";
+                context.fillStyle = "white"; //color of text
+                context.fillText("25", center.x - 11, center.y + 8);
 			}
+            else if (board[i][j] == 8) {//drug
+                insertPill(center.x, center.y);
+            }
+            else if (board[i][j] === 9) { // Candy
+                context.beginPath();
+                context.arc(center.x, center.y, 10, 0, 2 * Math.PI); // circle
+                let my_gradient = context.createLinearGradient(center.x - 7, center.y - 7, center.x + 7, center.y + 7);
+                my_gradient.addColorStop(0, "red");
+                my_gradient.addColorStop(0.5, "white");
+                my_gradient.addColorStop(1, "red");
+                context.fillStyle = my_gradient;
+                context.fill();
+                context.closePath();
+                context.beginPath();
+                context.lineTo(center.x, center.y);
+                context.lineTo(center.x - 15, center.y - 7);
+                context.lineTo(center.x - 7, center.y - 15);
+                context.fill();
+                context.closePath();
+                context.beginPath();
+                context.lineTo(center.x, center.y);
+                context.lineTo(center.x + 15, center.y + 7);
+                context.lineTo(center.x + 7, center.y + 15);
+                context.fill();
+                context.closePath();
+            }
 		}//for
 	}//for
 }//func
@@ -791,9 +859,9 @@ function chooseMovement(obj, toSort, toRandom) {
 
 	if (toSort) {
 		movements.sort(function (a, b) {
-			var aManheten = Math.pow(Math.pow(a.x - shape.j, 2) + Math.pow(a.y - shape.i, 2), 0.5);
-			var bManheten = Math.pow(Math.pow(b.x - shape.j, 2) + Math.pow(b.y - shape.i, 2), 0.5);
-			return aManheten - bManheten;
+			var moveA = Math.pow(Math.pow(a.x - shape.j, 2) + Math.pow(a.y - shape.i, 2), 0.5);
+			var moveB = Math.pow(Math.pow(b.x - shape.j, 2) + Math.pow(b.y - shape.i, 2), 0.5);
+			return moveA - moveB;
 		});
 	}
 
@@ -896,15 +964,16 @@ function newGameFromTheGame() {
 }
 
 function playAudio() {
-	//music.play();
+    backgroundMusic.play();
 }
 
 function pauseAudio() {
-	//music.pause();
+    backgroundMusic.pause();
 }
 
 function stopGame() {
 	clearInterval(interval);
+    clearInterval(interval1);
 
 	clearInterval(monster1Interval);
 	if (numberOfMonsters >= 2) {
@@ -916,7 +985,7 @@ function stopGame() {
 	if (numberOfMonsters >= 4) {
 		clearInterval(monster4Interval);
 	}
-	// pauseAudio();
+    pauseAudio();
 }
 
 function showPreGameArea() {
@@ -981,5 +1050,71 @@ function clearAllTheFilleds(){
 	score = undefined;
 	pac_color = undefined;
 	start_time = undefined;
+
+}
+
+function drawWall(x_center, y_center) {
+    const c = document.getElementById("canvas");
+    const ctx = c.getContext("2d");
+    const img = new Image();
+    img.src = "img/wall.svg";
+    ctx.drawImage(img, x_center , y_center , 2 * (canvasWidth / board_size), 1.5 * (canvasHeight / board_size));
+}
+
+function insertPill(x_center, y_center) {
+    var c = document.getElementById("canvas");
+    var ctx = c.getContext("2d");
+    var img = new Image();
+    img.src = "img/cherry.svg";
+    ctx.drawImage(img, x_center, y_center, 0.9*(canvasWidth/board_size), 0.9*(canvasHeight/board_size));
+    ctx.fillStyle = "red";
+    ctx.fillText("Bonus",x_center,y_center);
+
+}
+
+function findCellForCandy(board) {///////////////////////////////// find empty cell...to put food in
+    for( var i = 0; i < 10; i++ ) {
+        for (var j = 0; j < 10; j++) {
+            if (board[i][j] == 0) {
+                return [i, j];
+            }
+        }
+    }
+}
+
+function moveCandy(board,x,y){
+    var i = Math.floor(Math.random() * 4 + 1);
+    flag = false;
+    while(flag == false){
+        if ((x+1) < 10 && board[x+1][y] != 4 && i == 1){
+            flag == true;
+            return [x+1,y];
+        }
+        if ((x-1) > 0 && board[x-1][y] != 4 && i == 2){
+            flag == true;
+            return [x-1,y];
+        }
+        if ((y+1) < 10 && board[x][y+1] != 4 && i == 3){
+            flag == true;
+            return [x,y+1];
+        }
+        if ((y-1) > 0 && board[x][y-1] != 4 && i == 4){
+            flag == true;
+            return [x,y-1];
+        }
+        i = Math.floor(Math.random() * 4 + 1);
+    }
+}
+
+function updateCandyPosition(){
+    if(board[candyX][candyY] == 2 ){
+
+    }else{
+        var nextCandyCell = moveCandy(board,candyX,candyY);
+        board[candyX][candyY] = 0;
+        board[nextCandyCell[0]][nextCandyCell[1]] = 9;
+        candyX = nextCandyCell[0];
+        candyY = nextCandyCell[1];
+    }
 
 }
