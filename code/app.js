@@ -39,6 +39,7 @@ var candyX;
 var candyY;
 var canvasWidth;
 var canvasHeight;
+var startGameState;
 /////////////////////////////////////////////////////////////////////////////////////////////
 
 function startTheGame(gameStartInfo) {
@@ -56,21 +57,66 @@ function Start(gameStartInfo) {
 	alert("New game has started. Good luck!");
 	clearAllTheFilleds();
 	thisCurGameData = gameStartInfo;
-	BallsNumber = thisCurGameData.numberOfBallsInput;
-	MonstersNumber = thisCurGameData.numberOfMonstersInput;
-	durationTime = thisCurGameData.DurationOfGameInput;
-	time_left = ( Math.floor( thisCurGameData.DurationOfGameInput ) )*2;/////////////time move too fast so I *2
-	rightBut = thisCurGameData.rightBo ;
-	leftBut = thisCurGameData.leftBo ;
-	downBut = thisCurGameData.downBo ;
-	upBut = thisCurGameData.upBo;
-	//alert("contol keys check:  right: " +rightBut+ "  left: " +leftBut+  "  up: " + upBut+ "  down: "+downBut);
-	alert("keys: "+ rightBut +" "+leftBut  +" " +downBut +" " +upBut);
-	alert("settings : "+ durationTime +" "+MonstersNumber  +" " +BallsNumber);
-	rightBut = parseInt(rightBut );
-	leftBut = parseInt( leftBut );
-	downBut = parseInt( downBut );
-	upBut = parseInt( upBut);
+    startGameState =thisCurGameData.gameState;
+
+    if( startGameState=="cus"){
+        BallsNumber = thisCurGameData.numberOfBallsInput;
+        MonstersNumber = thisCurGameData.numberOfMonstersInput;
+        durationTime = thisCurGameData.DurationOfGameInput;
+        rightBut = thisCurGameData.rightBo ;
+        leftBut = thisCurGameData.leftBo ;
+        downBut = thisCurGameData.downBo ;
+        upBut = thisCurGameData.upBo;
+        //alert("keys are:  "+ " "+rightBut  + " "+leftBut+ " "+downBut+ " "+upBut);
+        upBut=converKeyTonum(upBut);
+        rightBut=converKeyTonum(rightBut);
+        leftBut=converKeyTonum(leftBut);
+        downBut=converKeyTonum(downBut);
+        //alert("keys after convert are:  "+ " "+rightBut  + " "+leftBut+ " "+downBut+ " "+upBut);
+    }
+    else{
+        let randDefaultOption = Math.floor(Math.random()*100);
+        let DurationOfGameInput ;
+        let numberOfMonstersInput ;
+        let numberOfBallsInput ;
+        if(randDefaultOption>60){
+            DurationOfGameInput = "60";
+            numberOfMonstersInput = "1";
+            numberOfBallsInput = "60";
+        }
+        else if(randDefaultOption>30 && randDefaultOption<60) {
+            DurationOfGameInput = "70";
+            numberOfMonstersInput ="2";
+            numberOfBallsInput = "70";
+        }
+        else{
+            DurationOfGameInput = "80";
+            numberOfMonstersInput = "3";
+            numberOfBallsInput = "80";
+        }
+        durationTime = DurationOfGameInput;
+        MonstersNumber = numberOfMonstersInput;
+        BallsNumber = numberOfBallsInput;
+        rightBut = 39;
+        leftBut = 37;
+        upBut = 38;
+        downBut = 40;
+        numberOfMonsters = MonstersNumber;
+        thisCurGameData.numberOfBallsInput = durationTime;
+        thisCurGameData.numberOfMonstersInput = MonstersNumber;
+        thisCurGameData.DurationOfGameInput = durationTime ;
+        thisCurGameData.rightBo = rightBut;
+        thisCurGameData.leftBo = leftBut;
+        thisCurGameData.downBo = downBut;
+        thisCurGameData.upBo = upBut;
+
+    }
+    time_left = ( Math.floor( durationTime ) )*2;/////////////time move too fast so I *2
+
+	// alert("keys: "+ rightBut +" "+leftBut  +" " +downBut +" " +upBut);
+	// alert("settings : "+ durationTime +" "+MonstersNumber  +" " +BallsNumber+"  startGameState= "+startGameState);
+	// alert("types:  durationTime="+typeof(durationTime)+"  rightBut= "+typeof(rightBut) +"  startGameState="+ typeof(startGameState))
+
 	//alert("contol keys check:  right: "+rightBut+"  typOf: " +typeof(rightBut) );
 	//alert("chet info- balls num:" + BallsNumber);
 	//alert("chet info- monster num:" + MonstersNumber);
@@ -97,8 +143,10 @@ function Start(gameStartInfo) {
 	var pacman_remain = 1;
 	start_time = new Date();
 	var wallRandom = Math.floor(Math.random()*100);
+	//alert("food_remain= "+food_remain+"  monsters_remain= "+monsters_remain+"  durationTime= "+durationTime);
+    //alert("types:  food_remain="+typeof(food_remain)+"  monsters_remain= "+typeof(monsters_remain) +"  durationTime="+ typeof(durationTime))
 	///////////////////////////////////////////////////////////////////////////////////////////////////////////////create the walls
-	alert("enter zone 1");
+	//alert("enter zone 1");
 	for( var i = 0; i < 10; i++ ){
 		board[i] = new Array();
 		for(var j = 0; j < 10; j++){
@@ -119,7 +167,7 @@ function Start(gameStartInfo) {
 		}
 	}
 	///////////////////////////////////////////////////////////////////////////fill board with monsters
-	alert("enter zone 2");
+	//alert("enter zone 2");
 	let randomNumForMonsterKind =0;
 	let Iindex =0;
 	let Jindex =0;
@@ -150,25 +198,25 @@ function Start(gameStartInfo) {
 		}
 	}
 	/////////////////////////////////////////////////////////////////////////////////////////////////////////////alert to delete
-	if( monsterNum ==1){
-		alert("mon 1: "+monster1Cord.x+" "+monster1Cord.y );
-	}
-	else if( monsterNum ==2 ){
-		alert("mon 1: "+monster1Cord.x+" "+monster1Cord.y + "  mon 2: "+monster2Cord.x+" "+monster2Cord.y );
-	}
-	else if( monsterNum ==3 ){
-		alert("mon 1: "+monster1Cord.x+" "+monster1Cord.y + "  mon 2: "+monster2Cord.x+" "+monster2Cord.y +
-			"  mon 3: "+monster3Cord.x+" "+monster3Cord.y  );
-	}
-	else if( monsterNum ==4 ){
-		alert("mon 1: "+monster1Cord.x+" "+monster1Cord.y + "  mon 2: "+monster2Cord.x+" "+monster2Cord.y +
-			"  mon 3: "+monster3Cord.x+" "+monster3Cord.y + "  mon 4: "+monster4Cord.x+" "+monster4Cord.y);
-	}
-	else{
-		alert(" 0 mon!!! monsterNum=" +monsterNum+ "  monsters_remain= "+monsters_remain+ "  MonstersNumber= "+MonstersNumber);
-	}
+	// if( monsterNum ==1){
+	// 	alert("mon 1: "+monster1Cord.x+" "+monster1Cord.y );
+	// }
+	// else if( monsterNum ==2 ){
+	// 	alert("mon 1: "+monster1Cord.x+" "+monster1Cord.y + "  mon 2: "+monster2Cord.x+" "+monster2Cord.y );
+	// }
+	// else if( monsterNum ==3 ){
+	// 	alert("mon 1: "+monster1Cord.x+" "+monster1Cord.y + "  mon 2: "+monster2Cord.x+" "+monster2Cord.y +
+	// 		"  mon 3: "+monster3Cord.x+" "+monster3Cord.y  );
+	// }
+	// else if( monsterNum ==4 ){
+	// 	alert("mon 1: "+monster1Cord.x+" "+monster1Cord.y + "  mon 2: "+monster2Cord.x+" "+monster2Cord.y +
+	// 		"  mon 3: "+monster3Cord.x+" "+monster3Cord.y + "  mon 4: "+monster4Cord.x+" "+monster4Cord.y);
+	// }
+	// else{
+	// 	alert(" 0 mon!!! monsterNum=" +monsterNum+ "  monsters_remain= "+monsters_remain+ "  MonstersNumber= "+MonstersNumber);
+	// }
 	//////////////////////////////////////////////////////////////////////////////////////////////////////////
-	alert("enter zone 3");
+	//alert("enter zone 3");
 	for( var i = 0; i < 10; i++ ){
 		for(var j = 0; j < 10; j++){
 			if( board[i][j]==4 || board[i][j]==10 || board[i][j]==11){
@@ -229,7 +277,7 @@ function Start(gameStartInfo) {
 		},
 		false
 	);
-	alert("enter zone 4");
+	//alert("enter zone 4");
 	curentdirection=1;
 	playAudio();
 	interval = setInterval(UpdatePosition, 250);///////////////////change time by user choice
@@ -257,58 +305,44 @@ function findRandomEmptyCell(board) {///////////////////////////////// find empt
 }
 
 function GetKeyPressed() {////////////////////////find out where the player want to move, witch bottom pushed
-	////////////// need to change for user choice
 
-	// var rightBut;
-	// var leftBut;
-	// var downBut;
-	// var upBut;
+    if( startGameState=="cus"){
+        if (keysDown[upBut]) {//up
+            curentdirection=1;//
+            return 1;
+        }
+        if (keysDown[downBut]) {//down
+            curentdirection=2;//
+            return 2;
+        }
+        if (keysDown[leftBut]) {//left
+            curentdirection=3;//
+            return 3;
+        }
+        if (keysDown[rightBut]) {//right
+            curentdirection=4;//
+            return 4;
+        }
+    }
+    else{
+        if (keysDown[38]) {//up
+            curentdirection=1;//
+            return 1;
+        }
+        if (keysDown[40]) {//down
+            curentdirection=2;//
+            return 2;
+        }
+        if (keysDown[37]) {//left
+            curentdirection=3;//
+            return 3;
+        }
+        if (keysDown[39]) {//right
+            curentdirection=4;//
+            return 4;
+        }
+    }
 
-	// if ( curentKeyPress == upBut) {//up
-	// 	return 1;
-	// }
-	// if (curentKeyPress == downBut) {//down
-	// 	return 2;
-	// }
-	// if (curentKeyPress == leftBut) {//left
-	// 	return 3;
-	// }
-	// if (curentKeyPress == rightBut) {//right
-	// 	return 4;
-	// }
-	// else{
-	// 	alert("---curentKeyPress: "+ curentKeyPress +"  upBut: "+upBut);
-	// }
-
-	// if (keysDown[upBut]) {//up
-	// 	return 1;
-	// }
-	// if (keysDown[downBut]) {//down
-	// 	return 2;
-	// }
-	// if (keysDown[leftBut]) {//left
-	// 	return 3;
-	// }
-	// if (keysDown[rightBut]) {//right
-	// 	return 4;
-	// }
-
-	if (keysDown[38]) {//up
-		curentdirection=1;//
-		return 1;
-	}
-	if (keysDown[40]) {//down
-		curentdirection=2;//
-		return 2;
-	}
-	if (keysDown[37]) {//left
-		curentdirection=3;//
-		return 3;
-	}
-	if (keysDown[39]) {//right
-		curentdirection=4;//
-		return 4;
-	}
 }
 
 
@@ -665,13 +699,59 @@ function Draw() {
 				context.fill();
 			}
 			else if (board[i][j] == 4) {//walls
-			    ///////////////////////////////option 1
-				context.beginPath();
-				context.rect(center.x - 30, center.y - 30, 60, 60);
-				context.fillStyle = "grey"; //color
-				context.fill();
-                //////////////////////////////option 2
+			    ///////////////////////////////option 1 - standart wals
+				// context.beginPath();
+				// context.rect(center.x - 30, center.y - 30, 60, 60);
+				// context.fillStyle = "grey"; //color
+				// context.fill();
+
+                //////////////////////////////option 2 - wall picture
                 //drawWall(center.x, center.y);
+
+                ////////////////////////////////////////option 3 - my walls draw
+                /////////////////////////wall section 1
+                context.beginPath();
+                context.rect(center.x - 30, center.y - 30, 28, 16);
+                context.fillStyle = "grey"; //color
+                context.fill();
+                context.beginPath();
+                context.rect(center.x - 2, center.y - 30, 4, 16);
+                context.fillStyle = "black"; //color
+                context.fill();
+                context.beginPath();
+                context.rect(center.x +2, center.y -30, 28, 16);
+                context.fillStyle = "grey"; //color
+                context.fill();
+                context.beginPath();
+                context.rect(center.x - 30, center.y -14, 60, 4);
+                context.fillStyle = "black"; //color
+                context.fill();
+                /////////////////////////wall section 2
+                context.beginPath();
+                context.rect(center.x - 30, center.y -10, 60, 16);
+                context.fillStyle = "grey"; //color
+                context.fill();
+                context.beginPath();
+                context.rect(center.x - 30, center.y +6, 60, 4);
+                context.fillStyle = "black"; //color
+                context.fill();
+                /////////////////////////wall section 3
+                context.beginPath();
+                context.rect(center.x - 30, center.y +10, 28, 16);
+                context.fillStyle = "grey"; //color
+                context.fill();
+                context.beginPath();
+                context.rect(center.x - 2, center.y +10, 4, 16);
+                context.fillStyle = "black"; //color
+                context.fill();
+                context.beginPath();
+                context.rect(center.x +2, center.y +10, 28, 16);
+                context.fillStyle = "grey"; //color
+                context.fill();
+                context.beginPath();
+                context.rect(center.x - 30, center.y +26, 60, 4);
+                context.fillStyle = "black"; //color
+                context.fill();
 			}
 			else if (board[i][j] == 5 ) {// 5 = 5 points
                 context.beginPath();
@@ -792,9 +872,9 @@ function reduceLivesAfterHitMonster2() {
 }
 
 function moveMonster1() {
-	var movement = chooseMovement(monster1Cord, true, false);
-	monster1Cord.x = movement.x;
-	monster1Cord.y = movement.y;
+	var move = chooseMovement(monster1Cord, true, false);
+	monster1Cord.x = move.x;
+	monster1Cord.y = move.y;
 
 	if (monster1Cord.x === shape.j && monster1Cord.y === shape.i){
 		if(monster1Cord.z == 8){
@@ -806,9 +886,9 @@ function moveMonster1() {
 	}
 }
 function moveMonster2() {
-	var movement = chooseMovement(monster2Cord, true, false);
-	monster2Cord.x = movement.x;
-	monster2Cord.y = movement.y;
+	var move = chooseMovement(monster2Cord, true, false);
+	monster2Cord.x = move.x;
+	monster2Cord.y = move.y;
 
 	if (monster2Cord.x === shape.j && monster2Cord.y === shape.i){
 		if(monster2Cord.z == 8){
@@ -821,9 +901,9 @@ function moveMonster2() {
 }
 
 function moveMonster3() {
-	var movement = chooseMovement(monster3Cord, true, false);
-	monster3Cord.x = movement.x;
-	monster3Cord.y = movement.y;
+	var move = chooseMovement(monster3Cord, true, false);
+	monster3Cord.x = move.x;
+	monster3Cord.y = move.y;
 
 	if (monster3Cord.x === shape.j && monster3Cord.y === shape.i){
 		if(monster3Cord.z == 8){
@@ -835,9 +915,9 @@ function moveMonster3() {
 	}
 }
 function moveMonster4() {
-	var movement = chooseMovement(monster4Cord, true, false);
-	monster4Cord.x = movement.x;
-	monster4Cord.y = movement.y;
+	var move = chooseMovement(monster4Cord, true, false);
+	monster4Cord.x = move.x;
+	monster4Cord.y = move.y;
 
 	if (monster4Cord.x === shape.j && monster4Cord.y === shape.i){
 		if(monster4Cord.z == 8){
@@ -849,31 +929,31 @@ function moveMonster4() {
 	}
 }
 
-function chooseMovement(obj, toSort, toRandom) {
-	var movements = [];
+function chooseMovement(obj, needSort, needRandom) {
+	var movementsSet = [];
 
-	if (obj.x + 1 >= 0 && obj.x + 1 < 10 && board[obj.y][obj.x + 1] !== 4) movements.push({x: obj.x + 1, y: obj.y});
-	if (obj.x - 1 >= 0 && obj.x - 1 < 10 && board[obj.y][obj.x - 1] !== 4) movements.push({x: obj.x - 1, y: obj.y});
-	if (obj.y + 1 >= 0 && obj.y + 1 < 10 && board[obj.y + 1][obj.x] !== 4) movements.push({x: obj.x, y: obj.y + 1});
-	if (obj.y - 1 >= 0 && obj.y - 1 < 10 && board[obj.y - 1][obj.x] !== 4) movements.push({x: obj.x, y: obj.y - 1});
+	if (obj.x + 1 >= 0 && obj.x + 1 < 10 && board[obj.y][obj.x + 1] !== 4) movementsSet.push({x: obj.x + 1, y: obj.y});
+	if (obj.x - 1 >= 0 && obj.x - 1 < 10 && board[obj.y][obj.x - 1] !== 4) movementsSet.push({x: obj.x - 1, y: obj.y});
+	if (obj.y + 1 >= 0 && obj.y + 1 < 10 && board[obj.y + 1][obj.x] !== 4) movementsSet.push({x: obj.x, y: obj.y + 1});
+	if (obj.y - 1 >= 0 && obj.y - 1 < 10 && board[obj.y - 1][obj.x] !== 4) movementsSet.push({x: obj.x, y: obj.y - 1});
 
-	if (toSort) {
-		movements.sort(function (a, b) {
+	if (needSort) {
+        movementsSet.sort(function (a, b) {
 			var moveA = Math.pow(Math.pow(a.x - shape.j, 2) + Math.pow(a.y - shape.i, 2), 0.5);
 			var moveB = Math.pow(Math.pow(b.x - shape.j, 2) + Math.pow(b.y - shape.i, 2), 0.5);
 			return moveA - moveB;
 		});
 	}
 
-	if (toRandom) {
-		return movements[Math.floor(Math.random() * movements.length)];
+	if (needRandom) {
+		return movementsSet[Math.floor(Math.random() * movementsSet.length)];
 	}
 
-	return movements[0];
+	return movementsSet[0];
 }
 /////////////////////////////////////////////////////////////////////////////////////////////////game restart and new game control
 function endGame() {
-	alert("enter end Game Area");
+	//alert("enter end Game Area");
 	if (lives <= 0){ alert(" Loser!"); }
 	else if( time_left <= 0){
 		if( score < 100 ){
@@ -892,7 +972,7 @@ function restartGame() {
 }
 
 function newGameFromControl(gameStartInfo) {
-	alert(" enter newGameFromControl function");
+	//alert(" enter newGameFromControl function");
 	context= undefined;
 	shape = new Object();
 	monster1Cord = undefined;
@@ -928,7 +1008,7 @@ function newGameFromControl(gameStartInfo) {
 }
 
 function newGameFromTheGame() {
-	alert(" enter newGameFromTheGame function");
+	//alert(" enter newGameFromTheGame function");
 	stopGame();
 	context= undefined;
 	shape = new Object();
@@ -1027,7 +1107,7 @@ function shuffle(a) {
 }
 
 function clearAllTheFilleds(){
-	alert(" enter clean all area");
+	//alert(" enter clean all area");
 	thisCurGameData = undefined;
 	BallsNumber = undefined;
 	MonstersNumber = undefined;
@@ -1117,4 +1197,68 @@ function updateCandyPosition(){
         candyY = nextCandyCell[1];
     }
 
+}
+
+function converKeyTonum( key) {
+    var conN;
+    var keys ;
+
+    if( typeof(key) === "string"){
+        keys = key.toLowerCase();
+        //alert("key is string");
+        //alert("key is: "+keys);
+
+        if(keys == "w"){ conN= 87;}
+        else if( keys == "q"){ conN= 81;}
+        else if( keys == "e"){ conN= 69;}
+        else if( keys == "r"){ conN= 82;}
+        else if( keys == "t"){ conN= 84;}
+        else if( keys == "y"){ conN= 89;}
+        else if( keys == "u"){ conN= 85;}
+        else if( keys == "i"){ conN= 73;}
+        else if( keys == "o"){ conN= 79;}
+        else if( keys == "p"){ conN= 80;}
+
+        else if( keys == "a"){ conN= 65;}
+        else if( keys == "s"){ conN= 83;}
+        else if( keys == "d"){ conN= 68;}
+        else if( keys == "f"){ conN= 70;}
+        else if( keys == "g"){ conN= 71;}
+        else if( keys == "h"){ conN= 72;}
+        else if( keys == "j"){ conN= 73;}
+        else if( keys == "k"){ conN= 75;}
+        else if( keys == "l"){ conN= 76;}
+        else if( keys == "z"){ conN= 90;}
+        else if( keys == "x"){ conN= 88;}
+        else if( keys == "c"){ conN= 67;}
+        else if( keys == "v"){ conN= 86;}
+        else if( keys == "b"){ conN= 66;}
+        else if( keys == "n"){ conN= 78;}
+        else if( keys == "m"){ conN= 77;}
+        else if( keys == ","){ conN= 188;}
+
+        else if( keys == "0"){ conN= 96;}
+        else if( keys == "1"){ conN= 97;}
+        else if( keys == "2"){ conN= 98;}
+        else if( keys == "3"){ conN= 99;}
+        else if( keys == "4"){ conN= 100;}
+        else if( keys == "5"){ conN= 101;}
+        else if( keys == "6"){ conN= 102;}
+        else if( keys == "7"){ conN= 103;}
+        else if( keys == "8"){ conN= 104;}
+        else if( keys == "9"){ conN= 105;}
+
+        else if( keys == "arrowright"){ conN= 39;}
+        else if( keys == "arrowleft"){ conN= 37;}
+        else if( keys == "arrowdown"){ conN= 40;}
+        else if( keys == "arrowup"){ conN= 38;}
+        else{
+            conN= 10000000000000;
+        }
+    }
+    else{
+        //dont convert
+    }
+
+    return conN;
 }

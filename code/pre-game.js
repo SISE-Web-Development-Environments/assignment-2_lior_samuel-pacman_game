@@ -115,8 +115,10 @@ function gameStartInfo() {
     const leftBo = leftB;
     const upBo = upB;
     const downBo = downB;
-    alert("keys: "+ rightBo +" "+leftBo  +" " +downBo +" " +upBo);
-    return {numberOfBallsInput, DurationOfGameInput, numberOfMonstersInput, rightBo, leftBo, upBo, downBo};
+    const gameState = "cus";
+    //alert("keys: "+ rightBo +" "+leftBo  +" " +downBo +" " +upBo +"  sgameState= "+gameState );
+    //alert("types:  " + "DurationOfGame: "+typeof(DurationOfGameInput)+"   rightBo: "+ typeof(rightBo));
+    return {numberOfBallsInput, DurationOfGameInput, numberOfMonstersInput, rightBo, leftBo, upBo, downBo, gameState};
 }
 //////////////////////////////////////////
 
@@ -126,33 +128,16 @@ function submitInfoWithDefault() {
 }
 
 function gameStartInfoWithDefault() {
-    let randDefaultOption = Math.floor(Math.random()*100);
-    let DurationOfGameInput ;
-    let numberOfMonstersInput ;
-    let numberOfBallsInput ;
-    if(randDefaultOption>60){
-        DurationOfGameInput = 60;
-        numberOfMonstersInput = 1;
-        numberOfBallsInput = 60;
-    }
-    else if(randDefaultOption>30 && randDefaultOption<60) {
-        DurationOfGameInput = 70;
-        numberOfMonstersInput = 2;
-        numberOfBallsInput = 70;
-    }
-    else{
-        DurationOfGameInput = 80;
-        numberOfMonstersInput = 3;
-        numberOfBallsInput = 80;
-    }
-    const DurationOfGameInputF = DurationOfGameInput;
-    const numberOfMonstersInputF = numberOfMonstersInput;
-    const numberOfBallsInputF = numberOfBallsInput;
-    const rightBoF = 39;
-    const leftBoF = 37;
-    const upBoF = 38;
-    const downBoF = 40;
-    alert("keys: "+ rightBoF +" "+leftBoF  +" " +downBoF +" " +upBoF);
-    alert("settings : "+ DurationOfGameInputF +" "+numberOfMonstersInputF  +" " +numberOfBallsInputF);
-    return {numberOfBallsInputF, DurationOfGameInputF, numberOfMonstersInputF, rightBoF, leftBoF, upBoF, downBoF};
+    const DurationOfGameInputF = "";
+    const numberOfMonstersInputF = "";
+    const numberOfBallsInputF = "";
+    const rightBoF = "";
+    const leftBoF = "";
+    const upBoF = "";
+    const downBoF = "";
+    const gameState = "def";
+    //alert("keys: "+ rightBoF +" "+leftBoF  +" " +downBoF +" " +upBoF);
+    //alert("settings : "+ DurationOfGameInputF +" "+numberOfMonstersInputF  +" " +numberOfBallsInputF+"  gameState= "+gameState);
+    //alert("types:  " + "DurationOfGame: "+typeof(DurationOfGameInputF)+"   rightBoF: "+ typeof(rightBoF));
+    return {numberOfBallsInputF, DurationOfGameInputF, numberOfMonstersInputF, rightBoF, leftBoF, upBoF, downBoF, gameState};
 }
