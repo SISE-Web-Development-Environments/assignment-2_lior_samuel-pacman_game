@@ -400,14 +400,15 @@ function UpdatePosition() {
 
 	var currentTime = new Date();
 	time_elapsed = (currentTime - start_time) / 1000;
+	time_left--;
 	if (score >= 300 && time_elapsed <= 25) {////////////////////////////////////////////pacman green transformation settings
 		pac_color = "green";
 	}
-	if ( BallsNumber == 0) {
+	if ( BallsNumber <= 0) {
 		window.alert("Game completed");
 		endGame();
 	}
-	else if( time_left==0){
+	else if( time_left<=0){
 		alert("time is up !!")
 		endGame();
 	}
@@ -422,17 +423,18 @@ function Draw() {
 	lblTimePaste.value = time_elapsed;// the time display
 	lblTimeLeft.value = Math.floor( time_left/2) ; ////////after *2, /2 for the display
 	lbllives.value = lives;
-	time_left--;
+
 	for (var i = 0; i < 10; i++) {
 		for (var j = 0; j < 10; j++) {
 			var center = new Object();
+
 			center.x = i * 60 + 30;
 			center.y = j * 60 + 30;
 			if (numberOfMonsters >=1 && monster1Cord.x == j && monster1Cord.y == i) {
 				context.beginPath();
 				context.arc(center.x, center.y, 20, 0 * Math.PI, 2 * Math.PI); // body circle
 				context.lineTo(center.x, center.y);
-				if(monster1Cord.z==8){ context.fillStyle = "black";  }
+				if(monster1Cord.z==8){ context.fillStyle = "green";  }
 				else{ context.fillStyle = "red"; }
 				context.fill();
 				//////////////////////////monster eye
@@ -472,7 +474,7 @@ function Draw() {
 				context.lineTo(center.x +16, center.y );
 				context.lineWidth = 8;
 				if(monster1Cord.z==8){
-					context.strokeStyle = "black";
+					context.strokeStyle = "green";
 					context.stroke();
 				}
 				else{
@@ -484,7 +486,7 @@ function Draw() {
 				context.beginPath();
 				context.arc(center.x, center.y, 20, 0 * Math.PI, 2 * Math.PI); // half circle
 				context.lineTo(center.x, center.y);
-				if(monster2Cord.z==8){ context.fillStyle = "black";  }
+				if(monster2Cord.z==8){ context.fillStyle = "green";  }
 				else{ context.fillStyle = "red"; }
 				context.fill();
 				//////////////////////////monster eye
@@ -524,7 +526,7 @@ function Draw() {
 				context.lineTo(center.x +16, center.y );
 				context.lineWidth = 8;
 				if(monster2Cord.z==8){
-					context.strokeStyle = "black";
+					context.strokeStyle = "green";
 					context.stroke();
 				}
 				else{
@@ -536,7 +538,7 @@ function Draw() {
 				context.beginPath();
 				context.arc(center.x, center.y, 20, 0 * Math.PI, 2 * Math.PI); // half circle
 				context.lineTo(center.x, center.y);
-				if(monster3Cord.z==8){ context.fillStyle = "black";  }
+				if(monster3Cord.z==8){ context.fillStyle = "green";  }
 				else{ context.fillStyle = "red"; }
 				context.fill();
 				//////////////////////////monster eye
@@ -576,7 +578,7 @@ function Draw() {
 				context.lineTo(center.x +16, center.y );
 				context.lineWidth = 8;
 				if(monster3Cord.z==8){
-					context.strokeStyle = "black";
+					context.strokeStyle = "green";
 					context.stroke();
 				}
 				else{
@@ -588,7 +590,7 @@ function Draw() {
 				context.beginPath();
 				context.arc(center.x, center.y, 20, 0 * Math.PI, 2 * Math.PI); // half circle
 				context.lineTo(center.x, center.y);
-				if(monster4Cord.z==8){ context.fillStyle = "black";  }
+				if(monster4Cord.z==8){ context.fillStyle = "green";  }
 				else{ context.fillStyle = "red"; }
 				context.fill();
 				//////////////////////////monster eye
@@ -628,7 +630,7 @@ function Draw() {
 				context.lineTo(center.x +16, center.y );
 				context.lineWidth = 8;
 				if(monster4Cord.z==8){
-					context.strokeStyle = "black";
+					context.strokeStyle = "green";
 					context.stroke();
 				}
 				else{
@@ -712,7 +714,7 @@ function Draw() {
                 /////////////////////////wall section 1
                 context.beginPath();
                 context.rect(center.x - 30, center.y - 30, 28, 16);
-                context.fillStyle = "grey"; //color
+                context.fillStyle = "blue"; //color
                 context.fill();
                 context.beginPath();
                 context.rect(center.x - 2, center.y - 30, 4, 16);
@@ -720,7 +722,7 @@ function Draw() {
                 context.fill();
                 context.beginPath();
                 context.rect(center.x +2, center.y -30, 28, 16);
-                context.fillStyle = "grey"; //color
+                context.fillStyle = "blue"; //color
                 context.fill();
                 context.beginPath();
                 context.rect(center.x - 30, center.y -14, 60, 4);
@@ -729,7 +731,7 @@ function Draw() {
                 /////////////////////////wall section 2
                 context.beginPath();
                 context.rect(center.x - 30, center.y -10, 60, 16);
-                context.fillStyle = "grey"; //color
+                context.fillStyle = "blue"; //color
                 context.fill();
                 context.beginPath();
                 context.rect(center.x - 30, center.y +6, 60, 4);
@@ -738,7 +740,7 @@ function Draw() {
                 /////////////////////////wall section 3
                 context.beginPath();
                 context.rect(center.x - 30, center.y +10, 28, 16);
-                context.fillStyle = "grey"; //color
+                context.fillStyle = "blue"; //color
                 context.fill();
                 context.beginPath();
                 context.rect(center.x - 2, center.y +10, 4, 16);
@@ -746,7 +748,7 @@ function Draw() {
                 context.fill();
                 context.beginPath();
                 context.rect(center.x +2, center.y +10, 28, 16);
-                context.fillStyle = "grey"; //color
+                context.fillStyle = "blue"; //color
                 context.fill();
                 context.beginPath();
                 context.rect(center.x - 30, center.y +26, 60, 4);
@@ -954,6 +956,7 @@ function chooseMovement(obj, needSort, needRandom) {
 /////////////////////////////////////////////////////////////////////////////////////////////////game restart and new game control
 function endGame() {
 	//alert("enter end Game Area");
+	//alert("time_left= "+time_left + "  BallsNumber= "+ BallsNumber);
 	if (lives <= 0){ alert(" Loser!"); }
 	else if( time_left <= 0){
 		if( score < 100 ){

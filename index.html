@@ -20,6 +20,13 @@
 		<link rel="stylesheet" href="registerStyle.css" />
 		<!-- Including the Lobster font from Google's Font Directory -->
         <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Lobster" />
+
+        <style>
+            canvas{
+                border: 10px solid black;
+                background: #1a1a1a;
+            }
+        </style>
 	</head>
 
 	<body>
@@ -237,8 +244,8 @@
 
             <section id="gameSection" class="gameClass">
                 <div id="" class="" >
-                    <button onclick="newGameFromTheGame();return true;" id="newGameButton" class="Gamebutton">New Game</button>
-                    <button onclick="restartGame();return true;" id="restartButton" class="Gamebutton">Restart Game</button>
+                    <button onclick="newGameFromTheGame();return true;" id="newGameButton" class="Gamebutton" style="vertical-align: middle">New Game</button>
+                    <button onclick="restartGame();return true;" id="restartButton" class="Gamebutton" style="vertical-align: middle">Restart Game</button>
                 </div>
                 <div id="gameInfo" class="gameHeaderClass" align="center">
                     <h4>User:</h4>
@@ -257,7 +264,7 @@
                 </div>
                 <div id="canvasBackground" class="canvasBackgroundClass">
                     <div id="CanvasGameArea" class="canvasClass" align="center">
-                        <canvas id="canvas" height="600" width="600" style="border:10px solid #000000;"></canvas>
+                        <canvas id="canvas" height="600" width="600" ></canvas>
                     </div>
                 </div>
 
