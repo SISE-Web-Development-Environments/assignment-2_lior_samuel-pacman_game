@@ -7,3 +7,5 @@ Lior Baruchovitch : 203530688
 Functionality we added to the game : 
  1 - Cherry - if you eat it you get a 35 points bonus
  2 - candy - Candy move across the board and if eaten give 50 points bonus
+ 3 - two kinds of monsters ! ,
+     green is normal (1 life hit) , and pink monster is strong (2 life hit).
